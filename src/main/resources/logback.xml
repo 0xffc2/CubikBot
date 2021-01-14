@@ -41,7 +41,7 @@
         <appender-ref ref="STDOUT" />
     </logger>
 
-    <logger name="me.kuku.yuq" level="ERROR" additivity="false">
+    <logger name="top.cubik65536.cubikbot" level="ERROR" additivity="false">
         <appender-ref ref="FILE" />
     </logger>
 

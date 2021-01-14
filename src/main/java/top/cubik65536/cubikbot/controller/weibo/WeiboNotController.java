@@ -1,0 +1,39 @@
+package top.cubik65536.cubikbot.controller.weibo;
+
+import com.IceCreamQAQ.Yu.annotation.Action;
+import com.icecreamqaq.yuq.annotation.GroupController;
+import com.icecreamqaq.yuq.annotation.QMsg;
+import top.cubik65536.cubikbot.logic.WeiboLogic;
+import top.cubik65536.cubikbot.pojo.Result;
+import top.cubik65536.cubikbot.pojo.WeiboPojo;
+
+import javax.inject.Inject;
+import java.io.IOException;
+import java.util.List;
+
+@GroupController
+@SuppressWarnings("unused")
+public class WeiboNotController {
+    @Inject
+    private WeiboLogic weiboLogic;
+
+    @Action("热搜")
+    @QMsg(at = true, atNewLine = true)
+    public String hotSearch() throws IOException {
+        List<String> list = weiboLogic.hotSearch();
+        StringBuilder sb = new StringBuilder();
+        for (String str: list){
+            sb.append(str).append("\n");
+        }
+        return sb.deleteCharAt(sb.length() - 1).toString();
+    }
+
+    @Action("wbinfo {username}")
+    @QMsg(at = true, atNewLine = true)
+    public String weiboInfo(String username) throws IOException {
+        Result<List<WeiboPojo>> idResult = weiboLogic.getIdByName(username);
+        List<WeiboPojo> idList = idResult.getData();
+        if (idList == null) return idResult.getMessage();
+        return weiboLogic.getUserInfo(idList.get(0).getUserId());
+    }
+}

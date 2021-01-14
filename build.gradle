@@ -4,7 +4,7 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.4.21'
 }
 
-group 'me.kuku'
+group 'top.cubik65536'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -35,6 +35,6 @@ tasks.withType(JavaCompile) {
 
 jar {
     manifest {
-        attributes ('Main-Class': 'me.kuku.yuq.Start')
+        attributes ('Main-Class': 'top.cubik65536.cubikbot.Start')
     }
 }
