@@ -19,10 +19,8 @@ import oshi.hardware.CentralProcessor;
 import oshi.hardware.GlobalMemory;
 import top.cubik65536.cubikbot.entity.ConfigEntity;
 import top.cubik65536.cubikbot.entity.GroupEntity;
-import top.cubik65536.cubikbot.logic.MyApiLogic;
 import top.cubik65536.cubikbot.logic.QQAILogic;
 import top.cubik65536.cubikbot.logic.ToolLogic;
-import top.cubik65536.cubikbot.pojo.InstagramPojo;
 import top.cubik65536.cubikbot.pojo.Result;
 import top.cubik65536.cubikbot.service.ConfigService;
 import top.cubik65536.cubikbot.service.GroupService;
@@ -60,8 +58,6 @@ public class ToolController {
     private RainInfo rainInfo;
     @Inject
     private MessageItemFactory mif;
-    @Inject
-    private MyApiLogic myApiLogic;
     @Config("YuQ.Mirai.protocol")
     private String protocol;
 
@@ -476,23 +472,6 @@ public class ToolController {
     @Action("genshin {id}")
     public String queryGenShinUserInfo(long id) throws IOException {
         return toolLogic.genShinUserInfo(id);
-    }
-
-    @Action("ins {username}")
-    @QMsg(at = true)
-    public Message ins(String username, @PathVar(value = 2, type = PathVar.Type.Integer) Integer page) throws IOException {
-        List<InstagramPojo> idList = myApiLogic.findInsIdByName(username);
-        if (idList.size() == 0) return Message.Companion.toMessage("没有找到该用户，请重试！！");
-        InstagramPojo instagramPojo = idList.get(0);
-        if (page == null) page = 2;
-        List<InstagramPojo> list = myApiLogic.findInsPicById(instagramPojo.getName(), instagramPojo.getUserId(), page);
-        if (list.size() == 0) return Message.Companion.toMessage("该用户目前还没有发布过图片，请重试！！");
-        InstagramPojo pojo = list.get((int) (Math.random() * list.size()));
-        List<String> picList = pojo.getPicList();
-        return FunKt.getMif()
-                .imageByInputStream(new ByteArrayInputStream(
-                        toolLogic.piXivPicProxy(picList.get((int) (Math.random() * picList.size())))
-                )).toMessage();
     }
 
     @Action("cosplay")
