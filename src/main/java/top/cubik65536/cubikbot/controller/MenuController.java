@@ -14,8 +14,6 @@ import top.cubik65536.cubikbot.controller.qqlogin.QQJobController;
 import top.cubik65536.cubikbot.controller.qqlogin.QQLoginController;
 import top.cubik65536.cubikbot.controller.qqlogin.QQQuickLoginController;
 import top.cubik65536.cubikbot.controller.warframe.WarframeController;
-import top.cubik65536.cubikbot.controller.weibo.WeiboController;
-import top.cubik65536.cubikbot.controller.weibo.WeiboNotController;
 import top.cubik65536.cubikbot.utils.BotUtils;
 
 import java.util.List;
@@ -62,11 +60,6 @@ public class MenuController {
     @Action("setting")
     public String setting(){
         return parse("设置", SettingController.class);
-    }
-
-    @Action("wb")
-    public String wb(){
-        return parse("微博", WeiboNotController.class, WeiboController.class);
     }
 
     @Action("wf")

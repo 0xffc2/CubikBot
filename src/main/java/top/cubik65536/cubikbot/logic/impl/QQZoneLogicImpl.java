@@ -95,7 +95,6 @@ public class QQZoneLogicImpl implements QQZoneLogic {
         map.put("lat", "0");
         map.put("lon", "0");
         map.put("lbsid", "0");
-        map.put("issyncweibo", "0");
         map.put("format", "json");
         JSONObject jsonObject = OkHttpUtils.postJson("\"https://mobile.qzone.qq.com/mood/publish_mood?g_tk=" + qqLoginEntity.getGtkP(),
                 map, OkHttpUtils.addCookie(qqLoginEntity.getCookieWithQQZone()));
