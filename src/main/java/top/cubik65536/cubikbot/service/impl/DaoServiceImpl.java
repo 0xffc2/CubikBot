@@ -2,7 +2,6 @@ package top.cubik65536.cubikbot.service.impl;
 
 import com.icecreamqaq.yudb.jpa.annotation.Transactional;
 import top.cubik65536.cubikbot.dao.BiliBiliDao;
-import top.cubik65536.cubikbot.dao.NeTeaseDao;
 import top.cubik65536.cubikbot.dao.QQJobDao;
 import top.cubik65536.cubikbot.dao.QQLoginDao;
 import top.cubik65536.cubikbot.service.DaoService;
@@ -16,8 +15,6 @@ public class DaoServiceImpl implements DaoService {
     private QQLoginDao qqLoginDao;
     @Inject
     private BiliBiliDao biliBiliDao;
-    @Inject
-    private NeTeaseDao neTeaseDao;
 
     @Override
     @Transactional
@@ -25,6 +22,5 @@ public class DaoServiceImpl implements DaoService {
         qqJobDao.delByQQ(qq);
         qqLoginDao.delByQQ(qq);
         biliBiliDao.delByQQ(qq);
-        neTeaseDao.delByQQ(qq);
     }
 }

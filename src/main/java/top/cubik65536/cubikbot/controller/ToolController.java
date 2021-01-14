@@ -13,7 +13,6 @@ import com.icecreamqaq.yuq.job.RainInfo;
 import com.icecreamqaq.yuq.message.Image;
 import com.icecreamqaq.yuq.message.Message;
 import com.icecreamqaq.yuq.message.MessageItemFactory;
-import com.icecreamqaq.yuq.message.XmlEx;
 import okhttp3.Response;
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
@@ -283,17 +282,6 @@ public class ToolController {
         return FunKt.getMif().imageByInputStream(new ByteArrayInputStream(toolLogic.queryTime()));
     }
 
-    @Action("网抑")
-    public XmlEx wy(){
-        return FunKt.getMif().xmlEx(1, "<?xml version='1.0' encoding='UTF-8' standalone='yes' ?><msg serviceID=\"1\" templateID=\"-1\" action=\"app\" actionData=\"com.netease.cloudmusic\" brief=\"点击启动网抑\" sourceMsgId=\"0\" url=\"https://www.kuku.me/archives/6/\" flag=\"2\" adverSign=\"0\" multiMsgFlag=\"0\"><item layout=\"12\" advertiser_id=\"0\" aid=\"0\"><picture cover=\"https://imgurl.cloudimg.cc/2020/07/26/2a7410726090854.jpg\" w=\"0\" h=\"0\" /><title>启动网抑音乐</title></item><source name=\"今天你网抑了吗\" icon=\"\" action=\"\" appid=\"0\" /></msg>");
-    }
-
-    @QMsg(at = true)
-    @Action("网抑云")
-    public String wyy() throws IOException {
-        return toolLogic.music163cloud();
-    }
-
     @Action("\\^BV.*\\")
     @Synonym({"\\^bv.*\\"})
     @QMsg(at = true)
@@ -393,12 +381,6 @@ public class ToolController {
     public Object musicFromQQ(String name) throws IOException {
         String xmlStr = toolLogic.songByQQ(name);
         return mif.xmlEx(2, xmlStr);
-    }
-
-    @Action("163点歌 {name}")
-    public Object musicFrom163(String name) throws IOException {
-        Result<String> xmlStr = toolLogic.songBy163(name);
-        return mif.xmlEx(2, xmlStr.getData());
     }
 
     @Action("统计")

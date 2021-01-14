@@ -12,8 +12,6 @@ import top.cubik65536.cubikbot.controller.bilibili.BiliBiliLoginController;
 import top.cubik65536.cubikbot.controller.manage.ManageAdminController;
 import top.cubik65536.cubikbot.controller.manage.ManageNotController;
 import top.cubik65536.cubikbot.controller.manage.ManageSuperAdminController;
-import top.cubik65536.cubikbot.controller.netease.BindNeTeaseController;
-import top.cubik65536.cubikbot.controller.netease.NeTeaseController;
 import top.cubik65536.cubikbot.controller.qqlogin.BindQQController;
 import top.cubik65536.cubikbot.controller.qqlogin.QQJobController;
 import top.cubik65536.cubikbot.controller.qqlogin.QQLoginController;
@@ -56,7 +54,6 @@ public class WebController {
         jsonObject.put("bilibili", BotUtils.menu(BiliBiliLoginController.class, BiliBiliController.class));
         jsonObject.put("bot", BotUtils.menu(BotController.class));
         jsonObject.put("manage", BotUtils.menu(ManageNotController.class, ManageSuperAdminController.class, ManageAdminController.class));
-        jsonObject.put("wy", BotUtils.menu(NeTeaseController.class, BindNeTeaseController.class));
         jsonObject.put("qq", BotUtils.menu(QQLoginController.class, BindQQController.class, QQJobController.class, QQQuickLoginController.class));
         jsonObject.put("setting", BotUtils.menu(SettingController.class));
         return jsonObject.toString();

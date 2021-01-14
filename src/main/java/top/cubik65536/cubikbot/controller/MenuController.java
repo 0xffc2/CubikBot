@@ -7,8 +7,6 @@ import top.cubik65536.cubikbot.controller.bilibili.BiliBiliLoginController;
 import top.cubik65536.cubikbot.controller.manage.ManageAdminController;
 import top.cubik65536.cubikbot.controller.manage.ManageNotController;
 import top.cubik65536.cubikbot.controller.manage.ManageSuperAdminController;
-import top.cubik65536.cubikbot.controller.netease.BindNeTeaseController;
-import top.cubik65536.cubikbot.controller.netease.NeTeaseController;
 import top.cubik65536.cubikbot.controller.qqlogin.BindQQController;
 import top.cubik65536.cubikbot.controller.qqlogin.QQJobController;
 import top.cubik65536.cubikbot.controller.qqlogin.QQLoginController;
@@ -44,11 +42,6 @@ public class MenuController {
     @Action("manage")
     public String manage(){
         return parse("manage", ManageNotController.class, ManageSuperAdminController.class, ManageAdminController.class);
-    }
-
-    @Action("wy")
-    public String wy(){
-        return parse("网易", NeTeaseController.class, BindNeTeaseController.class);
     }
 
     @Action("qq")

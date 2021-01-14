@@ -8,13 +8,10 @@ import com.icecreamqaq.yuq.FunKt;
 import com.icecreamqaq.yuq.annotation.GroupController;
 import com.icecreamqaq.yuq.controller.BotActionContext;
 import top.cubik65536.cubikbot.entity.BiliBiliEntity;
-import top.cubik65536.cubikbot.entity.NeTeaseEntity;
 import top.cubik65536.cubikbot.entity.QQLoginEntity;
 import top.cubik65536.cubikbot.logic.BiliBiliLogic;
-import top.cubik65536.cubikbot.logic.NeTeaseLogic;
 import top.cubik65536.cubikbot.pojo.Result;
 import top.cubik65536.cubikbot.service.BiliBiliService;
-import top.cubik65536.cubikbot.service.NeTeaseService;
 import top.cubik65536.cubikbot.service.QQLoginService;
 
 import javax.inject.Inject;
@@ -31,10 +28,6 @@ public class QQQuickLoginController {
 	private BiliBiliService biliBiliService;
 	@Inject
 	private BiliBiliLogic biliBiliLogic;
-	@Inject
-	private NeTeaseLogic neTeaseLogic;
-	@Inject
-	private NeTeaseService neTeaseService;
 
 	@Before
 	public void before(long qq, BotActionContext actionContext){
@@ -59,21 +52,5 @@ public class QQQuickLoginController {
 			return "绑定或者更新哔哩哔哩成功！！";
 		}else return result.getMessage();
 	}
-
-
-	@Action("wy")
-	public String wyLogin(QQLoginEntity qqLoginEntity, long qq, long group) throws IOException {
-		NeTeaseEntity neTeaseEntity = neTeaseService.findByQQ(qq);
-		if (neTeaseEntity == null) neTeaseEntity = new NeTeaseEntity(qq);
-		Result<NeTeaseEntity> result = neTeaseLogic.loginByQQ(qqLoginEntity);
-		if (result.getCode() == 200){
-			NeTeaseEntity newNeTeaseEntity = result.getData();
-			neTeaseEntity.set__csrf(newNeTeaseEntity.get__csrf());
-			neTeaseEntity.setMUSIC_U(newNeTeaseEntity.getMUSIC_U());
-			neTeaseService.save(neTeaseEntity);
-			return "绑定或者更新网易成功！！";
-		}else return result.getMessage();
-	}
-
 
 }

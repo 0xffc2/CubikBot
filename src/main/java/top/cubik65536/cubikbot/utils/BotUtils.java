@@ -18,8 +18,6 @@ import top.cubik65536.cubikbot.controller.manage.ManageAdminController;
 import top.cubik65536.cubikbot.controller.manage.ManageNotController;
 import top.cubik65536.cubikbot.controller.manage.ManageOwnerController;
 import top.cubik65536.cubikbot.controller.manage.ManageSuperAdminController;
-import top.cubik65536.cubikbot.controller.netease.BindNeTeaseController;
-import top.cubik65536.cubikbot.controller.netease.NeTeaseController;
 import top.cubik65536.cubikbot.controller.qqlogin.BindQQController;
 import top.cubik65536.cubikbot.controller.qqlogin.QQJobController;
 import top.cubik65536.cubikbot.controller.qqlogin.QQLoginController;
@@ -261,7 +259,6 @@ public class BotUtils {
     public static List<String> allCommand(){
         List<String> list = menu(BiliBiliController.class, BiliBiliLoginController.class,
                 ManageAdminController.class, ManageNotController.class, ManageOwnerController.class, ManageSuperAdminController.class,
-                BindNeTeaseController.class, NeTeaseController.class,
                 BindQQController.class, QQJobController.class, QQLoginController.class, QQQuickLoginController.class,
                 BotController.class, MenuController.class,
                 MyQQController.class, QQBindController.class, SettingController.class, ToolController.class, ToolController.class);
