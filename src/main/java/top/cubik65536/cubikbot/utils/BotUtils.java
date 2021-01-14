@@ -14,8 +14,6 @@ import okhttp3.Cookie;
 import top.cubik65536.cubikbot.controller.*;
 import top.cubik65536.cubikbot.controller.bilibili.BiliBiliController;
 import top.cubik65536.cubikbot.controller.bilibili.BiliBiliLoginController;
-import top.cubik65536.cubikbot.controller.hostloc.HostLocController;
-import top.cubik65536.cubikbot.controller.hostloc.HostLocLoginController;
 import top.cubik65536.cubikbot.controller.manage.ManageAdminController;
 import top.cubik65536.cubikbot.controller.manage.ManageNotController;
 import top.cubik65536.cubikbot.controller.manage.ManageOwnerController;
@@ -262,7 +260,7 @@ public class BotUtils {
     }
 
     public static List<String> allCommand(){
-        List<String> list = menu(BiliBiliController.class, BiliBiliLoginController.class, HostLocController.class, HostLocLoginController.class,
+        List<String> list = menu(BiliBiliController.class, BiliBiliLoginController.class,
                 ManageAdminController.class, ManageNotController.class, ManageOwnerController.class, ManageSuperAdminController.class,
                 BindNeTeaseController.class, NeTeaseController.class,
                 BindQQController.class, QQJobController.class, QQLoginController.class, QQQuickLoginController.class,

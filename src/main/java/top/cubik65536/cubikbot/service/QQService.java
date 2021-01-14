@@ -12,5 +12,4 @@ public interface QQService {
     @SuppressWarnings("UnusedReturnValue")
     int delByQQAndGroup(Long qq, Long group);
     List<QQEntity> findAll();
-    List<QQEntity> findByHostLocPush(boolean hostLocPush);
 }

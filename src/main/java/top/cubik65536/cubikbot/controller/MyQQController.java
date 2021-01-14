@@ -56,15 +56,6 @@ public class MyQQController extends QQController {
         return "您在本群违规次数为" + num + "次";
     }
 
-    @Action("loc推送 {status}")
-    @QMsg(at = true)
-    public String locPush(QQEntity qqEntity, boolean status){
-        qqEntity.setHostLocPush(status);
-        qqService.save(qqEntity);
-        if (status) return "hostLoc私聊推送已开启！！";
-        else return "hostLoc私聊推送已关闭！！";
-    }
-
     @Action("加推特监控 {content}")
     @Synonym({"加ins监控 {content}"})
     @QMsg(at = true)

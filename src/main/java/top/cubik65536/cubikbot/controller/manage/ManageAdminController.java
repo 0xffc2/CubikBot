@@ -59,7 +59,7 @@ public class ManageAdminController {
     }
 
     @Action("CubikBot {status}")
-    @Synonym({"loc监控 {status}", "整点报时 {status}", "自动审核 {status}",
+    @Synonym({"整点报时 {status}", "自动审核 {status}",
             "欢迎语 {status}", "退群拉黑 {status}", "鉴黄 {status}", "色图 {status}",
             "撤回通知 {status}", "闪照通知 {status}", "复读 {status}"})
     @QMsg(at = true)
@@ -93,7 +93,6 @@ public class ManageAdminController {
                             "Main Class : top.cubik65536.cubikbot.Start\n";
                 }
                 break;
-            case "loc监控": groupEntity.setLocMonitor(status); break;
             case "整点报时": groupEntity.setOnTimeAlarm(status); break;
             case "自动审核": groupEntity.setAutoReview(status); break;
             case "欢迎语": groupEntity.setWelcomeMsg(status); break;

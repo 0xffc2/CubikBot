@@ -43,9 +43,4 @@ public class QQServiceImpl implements QQService {
         return qqDao.findAll();
     }
 
-    @Override
-    @Transactional
-    public List<QQEntity> findByHostLocPush(boolean hostLocPush) {
-        return qqDao.findByHostLocPush(hostLocPush);
-    }
 }
