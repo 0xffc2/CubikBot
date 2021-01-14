@@ -17,9 +17,6 @@ public class QQBindEntity {
 	private Integer id;
 	@Column(unique = true)
 	private Long qq;
-	@Lob
-	@Column(columnDefinition="text")
-	private String arkNightsCookie;
 
 
 	public QQBindEntity(long qq){
