@@ -3,7 +3,6 @@ package top.cubik65536.cubikbot.utils;
 import javax.crypto.Cipher;
 import java.io.ByteArrayOutputStream;
 import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
@@ -135,9 +134,10 @@ public class RSAUtils {
             i++;
             offset = i * MAX_DECRYPT_BLOCK;
         }
+        byte[] decryptedData = out.toByteArray();
         out.close();
         // 解密后的内容
-        return out.toString(StandardCharsets.UTF_8);
+        return new String(decryptedData, "UTF-8");
     }
 
     /**
