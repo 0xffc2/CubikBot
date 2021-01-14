@@ -18,10 +18,8 @@ import com.icecreamqaq.yuq.message.MessageItemFactory;
 import top.cubik65536.cubikbot.entity.GroupEntity;
 import top.cubik65536.cubikbot.entity.QQEntity;
 import top.cubik65536.cubikbot.logic.BiliBiliLogic;
-import top.cubik65536.cubikbot.logic.WeiboLogic;
 import top.cubik65536.cubikbot.pojo.BiliBiliPojo;
 import top.cubik65536.cubikbot.pojo.Result;
-import top.cubik65536.cubikbot.pojo.WeiboPojo;
 import top.cubik65536.cubikbot.service.GroupService;
 import top.cubik65536.cubikbot.service.QQService;
 import top.cubik65536.cubikbot.utils.BotUtils;
@@ -38,8 +36,6 @@ public class ManageSuperAdminController {
     private String master;
     @Inject
     private GroupService groupService;
-    @Inject
-    private WeiboLogic weiboLogic;
     @Inject
     private BiliBiliLogic biliBiliLogic;
     @Inject
@@ -69,15 +65,6 @@ public class ManageSuperAdminController {
                 break;
             case "加拦截":
                 groupEntity.setInterceptJsonArray(groupEntity.getInterceptJsonArray().fluentAdd(content));
-                break;
-            case "加微博监控":
-                Result<List<WeiboPojo>> result = weiboLogic.getIdByName(content);
-                if (result.getCode() != 200) return "该用户不存在！！";
-                WeiboPojo weiboPojo = result.getData().get(0);
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("id", weiboPojo.getUserId());
-                jsonObject.put("name", weiboPojo.getName());
-                groupEntity.setWeiboJsonArray(groupEntity.getWeiboJsonArray().fluentAdd(jsonObject));
                 break;
             case "加哔哩哔哩监控":
                 Result<List<BiliBiliPojo>> blResult = biliBiliLogic.getIdByName(content);
@@ -119,11 +106,6 @@ public class ManageSuperAdminController {
                 JSONArray interceptJsonArray = groupEntity.getInterceptJsonArray();
                 BotUtils.delManager(interceptJsonArray, content);
                 groupEntity.setInterceptJsonArray(interceptJsonArray);
-                break;
-            case "删微博监控":
-                JSONArray weiboJsonArray = groupEntity.getWeiboJsonArray();
-                BotUtils.delManager(weiboJsonArray, content);
-                groupEntity.setWeiboJsonArray(weiboJsonArray);
                 break;
             case "删哔哩哔哩监控":
                 JSONArray biliBiliJsonArray = groupEntity.getBiliBiliJsonArray();

@@ -7,13 +7,15 @@ import com.IceCreamQAQ.Yu.annotation.Synonym;
 import com.icecreamqaq.yuq.FunKt;
 import com.icecreamqaq.yuq.annotation.GroupController;
 import com.icecreamqaq.yuq.controller.BotActionContext;
-import top.cubik65536.cubikbot.entity.*;
+import top.cubik65536.cubikbot.entity.BiliBiliEntity;
+import top.cubik65536.cubikbot.entity.NeTeaseEntity;
+import top.cubik65536.cubikbot.entity.QQLoginEntity;
 import top.cubik65536.cubikbot.logic.BiliBiliLogic;
-import top.cubik65536.cubikbot.logic.LeXinMotionLogic;
 import top.cubik65536.cubikbot.logic.NeTeaseLogic;
-import top.cubik65536.cubikbot.logic.WeiboLogic;
 import top.cubik65536.cubikbot.pojo.Result;
-import top.cubik65536.cubikbot.service.*;
+import top.cubik65536.cubikbot.service.BiliBiliService;
+import top.cubik65536.cubikbot.service.NeTeaseService;
+import top.cubik65536.cubikbot.service.QQLoginService;
 
 import javax.inject.Inject;
 import java.io.IOException;
@@ -26,17 +28,9 @@ public class QQQuickLoginController {
 	@Inject
 	private QQLoginService qqLoginService;
 	@Inject
-	private WeiboService weiboService;
-	@Inject
 	private BiliBiliService biliBiliService;
 	@Inject
-	private MotionService motionService;
-	@Inject
-	private WeiboLogic weiboLogic;
-	@Inject
 	private BiliBiliLogic biliBiliLogic;
-	@Inject
-	private LeXinMotionLogic leXinMotionLogic;
 	@Inject
 	private NeTeaseLogic neTeaseLogic;
 	@Inject
@@ -48,20 +42,6 @@ public class QQQuickLoginController {
 		if (qqLoginEntity == null) throw FunKt.getMif().at(qq).plus("您还没有绑定QQ号，请绑定后再试！！<群聊发送<qqlogin qr>或者私聊发送<qqlogin pwd>>").toThrowable();
 		else if (!qqLoginEntity.getStatus()) throw FunKt.getMif().at(qq).plus("您的QQ已失效，请更新后再试！！").toThrowable();
 		else actionContext.set("qqLoginEntity", qqLoginEntity);
-	}
-
-	@Action("weibo")
-	public String weiboLogin(QQLoginEntity qqLoginEntity, long qq, long group) throws IOException {
-		WeiboEntity weiboEntity = weiboService.findByQQ(qq);
-		if (weiboEntity == null) weiboEntity = new WeiboEntity(qq, group);
-		Result<WeiboEntity> result = weiboLogic.loginByQQ(qqLoginEntity);
-		if (result.getCode() == 200){
-			WeiboEntity newWeiboEntity = result.getData();
-			weiboEntity.setMobileCookie(newWeiboEntity.getMobileCookie());
-			weiboEntity.setPcCookie(newWeiboEntity.getPcCookie());
-			weiboService.save(weiboEntity);
-			return "绑定或者更新微博成功！！";
-		}else return result.getMessage();
 	}
 
 	@Action("bilibili")
@@ -80,20 +60,6 @@ public class QQQuickLoginController {
 		}else return result.getMessage();
 	}
 
-	@Action("lexin")
-	public String leXinLogin(QQLoginEntity qqLoginEntity, long qq, long group) throws IOException {
-		MotionEntity motionEntity = motionService.findByQQ(qq);
-		if (motionEntity == null) motionEntity = new MotionEntity(qq, group);
-		Result<MotionEntity> result = leXinMotionLogic.loginByQQ(qqLoginEntity);
-		if (result.getCode() == 200){
-			MotionEntity newMotionEntity = result.getData();
-			motionEntity.setLeXinCookie(newMotionEntity.getLeXinCookie());
-			motionEntity.setLeXinUserId(newMotionEntity.getLeXinUserId());
-			motionEntity.setLeXinAccessToken(newMotionEntity.getLeXinAccessToken());
-			motionService.save(motionEntity);
-			return "绑定或者更新乐心运行成功！！";
-		}else return result.getMessage();
-	}
 
 	@Action("wy")
 	public String wyLogin(QQLoginEntity qqLoginEntity, long qq, long group) throws IOException {

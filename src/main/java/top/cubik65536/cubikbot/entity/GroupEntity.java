@@ -40,9 +40,6 @@ public class GroupEntity {
     private String superAdminList;
     @Lob
     @Column(columnDefinition="text")
-    private String weiboList;
-    @Lob
-    @Column(columnDefinition="text")
     private String biliBiliList;
     @Lob
     @Column(columnDefinition="text")
@@ -125,15 +122,6 @@ public class GroupEntity {
 
     public void setAdminJsonArray(JSONArray jsonArray){
         this.adminList = jsonArray.toString();
-    }
-
-    public JSONArray getWeiboJsonArray(){
-        if (weiboList == null) return new JSONArray();
-        else return JSON.parseArray(weiboList);
-    }
-
-    public void setWeiboJsonArray(JSONArray jsonArray){
-        this.weiboList = jsonArray.toString();
     }
 
     public JSONArray getBiliBiliJsonArray(){

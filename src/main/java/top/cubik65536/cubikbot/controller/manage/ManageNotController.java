@@ -71,14 +71,6 @@ public class ManageNotController {
                 sb.append("本群被拦截的指令列表如下：").append("\n");
                 groupEntity.getInterceptJsonArray().forEach(obj -> sb.append(obj).append("\n"));
                 break;
-            case "查微博监控":
-                sb.append("本群微博监控列表如下：").append("\n");
-                groupEntity.getWeiboJsonArray().forEach( obj -> {
-                    JSONObject weiboJsonObject = (JSONObject) obj;
-                    sb.append(weiboJsonObject.getString("id")).append("-")
-                            .append(weiboJsonObject.getString("name")).append("\n");
-                });
-                break;
             case "查哔哩哔哩监控":
                 sb.append("本群哔哩哔哩监控列表如下：").append("\n");
                 groupEntity.getBiliBiliJsonArray().forEach( obj -> {
