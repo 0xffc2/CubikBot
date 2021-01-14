@@ -1,0 +1,11 @@
+# Project exclude paths
+/build/
+/.idea/
+/.gradle/
+/log/
+/tmp/
+/db/
+/conf/
+/dependency-reduced-pom.xml
+/device.json
+/yuq.iml
