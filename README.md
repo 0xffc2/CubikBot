@@ -1,49 +1,40 @@
 **基于`YuQ-Mirai`的不好用的机器人**
+
+#### 感谢以下项目为我们提供环境 
 * [YuQ-Mirai](https://github.com/YuQWorks/YuQ-Mirai)
-* [YuQ-Mirai-SuperDemo](https://github.com/YuQWorks/YuQ-SuperDemo)
 * [Mirai](https://github.com/mamoe/mirai)
 
-**Jar包下载**：https://file.kuku.me
+#### 感谢以下项目让我能够快速上手学习YuQ-Mirai机器人开发
+* [kuku-bot](https://github.com/kukume/kuku-bot)
+* [YuQ-Mirai-Demo](https://github.com/YuQWorks/YuQ-Mirai-Demo)
+* [YuQ-Mirai-SuperDemo](https://github.com/YuQWorks/YuQ-SuperDemo)
 
+**由于Mirai-Demo在我开始该项目之时版本落后，我使用了 [kuku-bot](https://github.com/kukume/kuku-bot) 的源代码作为该程序的初始代码（2020-01-13版），所有更新均在此代码上实现，感谢kuku-bot开发者做出了一个非常好用的机器人。**
+
+------
+  
 **最新版本已支持过滑块验证码（版本过低，环境异常等都是不能过滑块验证码的原因），但是需要gui环境，如果是把挂在无ui环境的，可以在有ui环境（比如：windows系统）的机器上登录成功后，把`device.json`复制到程序根目录**
 
 ## 功能
-* QQ签到
-* 推送最新微博到群聊（指定用户名）、私聊（我的关注）
-* 推送最新哔哩哔哩动态到群聊（指定用户名）、私聊（我的关注）
-* 哔哩哔哩自动完成每日任务
-* HostLoc自动签到
-* twitter监控
-* instagram监控
-* 修改步数（wx and alipay and qq）
-* 网易云音乐打卡和每日300首听歌量
-* 群管功能
-* 一些小工具
 
 ## 教程文章
 
-**Docker**版（将在提交代码后自动更新）：[https://www.kuku.me/archives/8/](https://www.kuku.me/archives/8/)
-
-mirai-console版：[https://www.kuku.me/archives/7/](https://www.kuku.me/archives/7/)
-
-安装教程：[https://www.kuku.me/archives/6/](https://www.kuku.me/archives/6/)
-
 ## 说明
-* 数据库使用h2，目录`db`下
-* 超级萌宠已删除，建议使用XP插件`XAutoDaily`
-* 有些QQ号可能无法登陆，提示版本过低或者环境异常，无法解决，等待mirai更新吧
 
 ## 鸣谢
 
 > [IntelliJ IDEA](https://zh.wikipedia.org/zh-hans/IntelliJ_IDEA) 是一个在各个方面都最大程度地提高开发人员的生产力的 IDE，适用于 JVM 平台语言。
 
-特别感谢 [JetBrains](https://www.jetbrains.com/?from=kuku-bot) 为开源项目提供免费的 [IntelliJ IDEA](https://www.jetbrains.com/idea/?from=kuku-bot) 等 IDE 的授权  
-[<img src="https://u.iheit.com/images/jetbrains-variant-3.png" width="200"/>](https://www.jetbrains.com/?from=kuku-bot)
+特别感谢 [JetBrains](https://www.jetbrains.com/) 为开源项目提供免费的 [IntelliJ IDEA](https://www.jetbrains.com/idea/) 等 IDE 的授权 
+ 
+[<img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/IntelliJ_IDEA_Logo.svg" width="200"/>](https://www.jetbrains.com/)
 
 ## 协议
-**一切开发旨在学习，请勿用于非法用途**
+**请遵守AGPL-3.0协议内容**
 
-**本项目禁止被用于进行违反中华人民共和国法律法规的行为**
+**一切开发旨在学习，请勿用于商业用途**
+
+**本项目禁止被用于进行违反美国、加拿大、中华人民共和国以及使用者所处国家法律法规的行为**
 
 ------
 
