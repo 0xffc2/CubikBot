@@ -24,7 +24,6 @@ import top.cubik65536.cubikbot.controller.qqlogin.BindQQController;
 import top.cubik65536.cubikbot.controller.qqlogin.QQJobController;
 import top.cubik65536.cubikbot.controller.qqlogin.QQLoginController;
 import top.cubik65536.cubikbot.controller.qqlogin.QQQuickLoginController;
-import top.cubik65536.cubikbot.controller.warframe.WarframeController;
 import top.cubik65536.cubikbot.entity.QQLoginEntity;
 import top.cubik65536.cubikbot.pojo.UA;
 
@@ -264,7 +263,7 @@ public class BotUtils {
                 ManageAdminController.class, ManageNotController.class, ManageOwnerController.class, ManageSuperAdminController.class,
                 BindNeTeaseController.class, NeTeaseController.class,
                 BindQQController.class, QQJobController.class, QQLoginController.class, QQQuickLoginController.class,
-                WarframeController.class, BotController.class, MenuController.class,
+                BotController.class, MenuController.class,
                 MyQQController.class, QQBindController.class, SettingController.class, ToolController.class, ToolController.class);
         for (int i = 0; i < list.size(); i++){
             String str = list.get(i);

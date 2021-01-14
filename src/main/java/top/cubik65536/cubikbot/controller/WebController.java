@@ -18,7 +18,6 @@ import top.cubik65536.cubikbot.controller.qqlogin.BindQQController;
 import top.cubik65536.cubikbot.controller.qqlogin.QQJobController;
 import top.cubik65536.cubikbot.controller.qqlogin.QQLoginController;
 import top.cubik65536.cubikbot.controller.qqlogin.QQQuickLoginController;
-import top.cubik65536.cubikbot.controller.warframe.WarframeController;
 import top.cubik65536.cubikbot.utils.BotUtils;
 
 @com.IceCreamQAQ.YuWeb.annotation.WebController
@@ -60,7 +59,6 @@ public class WebController {
         jsonObject.put("wy", BotUtils.menu(NeTeaseController.class, BindNeTeaseController.class));
         jsonObject.put("qq", BotUtils.menu(QQLoginController.class, BindQQController.class, QQJobController.class, QQQuickLoginController.class));
         jsonObject.put("setting", BotUtils.menu(SettingController.class));
-        jsonObject.put("wf", BotUtils.menu(WarframeController.class));
         return jsonObject.toString();
     }
 }

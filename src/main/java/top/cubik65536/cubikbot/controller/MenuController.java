@@ -13,7 +13,6 @@ import top.cubik65536.cubikbot.controller.qqlogin.BindQQController;
 import top.cubik65536.cubikbot.controller.qqlogin.QQJobController;
 import top.cubik65536.cubikbot.controller.qqlogin.QQLoginController;
 import top.cubik65536.cubikbot.controller.qqlogin.QQQuickLoginController;
-import top.cubik65536.cubikbot.controller.warframe.WarframeController;
 import top.cubik65536.cubikbot.utils.BotUtils;
 
 import java.util.List;
@@ -60,11 +59,6 @@ public class MenuController {
     @Action("setting")
     public String setting(){
         return parse("设置", SettingController.class);
-    }
-
-    @Action("wf")
-    public String wf() {
-        return parse("wf",  WarframeController.class);
     }
 
     @Action("菜单")
