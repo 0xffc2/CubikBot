@@ -64,7 +64,6 @@ public class WebController {
         jsonObject.put("setting", BotUtils.menu(SettingController.class));
         jsonObject.put("wb", BotUtils.menu(WeiboNotController.class, WeiboController.class));
         jsonObject.put("wf", BotUtils.menu(WarframeController.class));
-        jsonObject.put("ark", BotUtils.menu(ArkNightsController.class));
         return jsonObject.toString();
     }
 }

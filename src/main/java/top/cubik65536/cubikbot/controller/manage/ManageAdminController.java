@@ -78,7 +78,7 @@ public class ManageAdminController {
                             "    maven { url \"https://maven.icecreamqaq.com/repository/maven-public/\" }\n" +
                             "    maven { url \"https://nexus.kuku.me/repository/maven-public/\" }\n" +
                             "    mavenCentral()\n" +
-                            "    jcenter()" +
+                            "    jcenter()\n" +
                             "Dependencies : testCompile group: 'junit', name: 'junit', version: '4.12'\n" +
                             "    implementation 'org.projectlombok:lombok:1.18.16'\n" +
                             "    annotationProcessor 'org.projectlombok:lombok:1.18.16'\n" +
@@ -88,8 +88,8 @@ public class ManageAdminController {
                             "    implementation 'com.IceCreamQAQ:Yu-Core:0.2.0.0-DEV7'\n" +
                             "    implementation 'org.jsoup:jsoup:1.13.1'\n" +
                             "    implementation 'com.h2database:h2:1.4.200'\n" +
-                            "    implementation 'com.github.oshi:oshi-core:5.3.5'" +
-                            "Java Environement : java 1.8.0_271, Java Compile Encoding : UTF-8" +
+                            "    implementation 'com.github.oshi:oshi-core:5.3.5'\n" +
+                            "Java Environement : java 1.8.0_271, Java Compile Encoding : UTF-8\n" +
                             "Main Class : top.cubik65536.cubikbot.Start\n";
                 }
                 break;

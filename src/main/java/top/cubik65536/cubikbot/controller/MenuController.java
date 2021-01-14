@@ -74,11 +74,6 @@ public class MenuController {
         return parse("wf",  WarframeController.class);
     }
 
-    @Action("ark")
-    public String ark(){
-        return parse("ark", ArkNightsController.class);
-    }
-
     @Action("菜单")
     public String menu(){
         return "https://api.kuku.me/menu";

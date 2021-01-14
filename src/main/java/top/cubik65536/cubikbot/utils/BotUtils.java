@@ -268,7 +268,7 @@ public class BotUtils {
                 ManageAdminController.class, ManageNotController.class, ManageOwnerController.class, ManageSuperAdminController.class,
                 BindStepController.class, MotionController.class, BindNeTeaseController.class, NeTeaseController.class,
                 BindQQController.class, QQJobController.class, QQLoginController.class, QQQuickLoginController.class,
-                WarframeController.class, ArkNightsController.class, BotController.class, MenuController.class,
+                WarframeController.class, BotController.class, MenuController.class,
                 MyQQController.class, QQBindController.class, SettingController.class, ToolController.class, ToolController.class);
         for (int i = 0; i < list.size(); i++){
             String str = list.get(i);
