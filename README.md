@@ -25,11 +25,13 @@
 
 > [IntelliJ IDEA](https://zh.wikipedia.org/zh-hans/IntelliJ_IDEA) 是一个在各个方面都最大程度地提高开发人员的生产力的 IDE，适用于 JVM 平台语言。
 
-特别感谢 [JetBrains](https://www.jetbrains.com/) 为开源项目提供免费的 [IntelliJ IDEA](https://www.jetbrains.com/idea/) 等 IDE 的授权 
- 
-[<img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/IntelliJ_IDEA_Logo.svg" width="200"/>](https://www.jetbrains.com/)
+特别感谢 [JetBrains](https://www.jetbrains.com/) 为开源项目提供免费的 [IntelliJ IDEA](https://www.jetbrains.com/idea/) 等 IDE 的授权
+
+[<img src="https://cdn.jsdelivr.net/gh/Cubik65536/Cubik-Image-Hosting-Service/public/assets/img/jetbrains-variant-4.png" width="210"/>](https://www.jetbrains.com/)
+[<img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/IntelliJ_IDEA_Logo.svg" width="120"/>](https://www.jetbrains.com/idea/)
 
 ## 协议
+
 **请遵守AGPL-3.0协议内容**
 
 **一切开发旨在学习，请勿用于商业用途**
