@@ -1,14 +1,18 @@
 package top.cubik65536.cubikbot.controller;
 
 import com.IceCreamQAQ.Yu.annotation.Action;
+import com.IceCreamQAQ.Yu.annotation.Before;
 import com.IceCreamQAQ.Yu.annotation.Config;
 import com.IceCreamQAQ.Yu.annotation.Synonym;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.icecreamqaq.yuq.FunKt;
 import com.icecreamqaq.yuq.annotation.GroupController;
 import com.icecreamqaq.yuq.annotation.PathVar;
 import com.icecreamqaq.yuq.annotation.QMsg;
 import com.icecreamqaq.yuq.controller.ContextSession;
 import com.icecreamqaq.yuq.entity.Group;
+import com.icecreamqaq.yuq.entity.Member;
 import com.icecreamqaq.yuq.job.RainInfo;
 import com.icecreamqaq.yuq.message.Image;
 import com.icecreamqaq.yuq.message.Message;
@@ -36,6 +40,7 @@ import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -58,12 +63,19 @@ public class ToolController {
     private RainInfo rainInfo;
     @Inject
     private MessageItemFactory mif;
+
+    @Before
+    public GroupEntity before(long group, Member qq) {
+        GroupEntity groupEntity = groupService.findByGroup(group);
+        return groupEntity;
+    }
+
     @Config("YuQ.Mirai.protocol")
     private String protocol;
 
     private final LocalDateTime startTime;
 
-    public ToolController(){
+    public ToolController() {
         startTime = LocalDateTime.now();
     }
 
@@ -497,7 +509,54 @@ public class ToolController {
 
     @Action("抽象话 {word}")
     @QMsg(at = true)
-    public String abstractWords(String word){
+    public String abstractWords(String word) {
         return "抽象话如下：\n" + toolLogic.abstractWords(word);
     }
+
+    @Action("学习 {learn} {say}")
+    @QMsg(at = true)
+    public String learn(ContextSession session, long qq, GroupEntity groupEntity, Group group, @PathVar(2) String type, String learn, String say) {
+        if (learn.equals("草")) {
+            return "无法学习该词汇！";
+        }
+        MessageItemFactory mif = FunKt.getMif();
+        JSONObject jsonObject = new JSONObject();
+        JSONArray aJsonArray = BotUtils.messageToJsonArray(mif.text(say).toMessage());
+        jsonObject.put("q", learn);
+        jsonObject.put("a", aJsonArray);
+        if (type == null) type = "PARTIAL";
+        if (!"ALL".equalsIgnoreCase(type)) type = "PARTIAL";
+        else type = "ALL";
+        jsonObject.put("type", type);
+        JSONArray jsonArray = groupEntity.getLearnJsonArray();
+        jsonArray.add(jsonObject);
+        groupEntity.setLearnJsonArray(jsonArray);
+        groupService.save(groupEntity);
+        return "学习成功！快对我说 " + learn + " 试试吧！";
+    }
+
+    @Action("复读 {word}")
+    @QMsg(at = true)
+    public String learn(ContextSession session, long qq, GroupEntity groupEntity, Group group, @PathVar(2) String type, String word) {
+        String message = learn(session, qq, groupEntity, group, type, word, word);
+        return message;
+    }
+
+    @Action("忘记 {word}")
+    @QMsg(at = true)
+    public String delLearn(GroupEntity groupEntity, String word) {
+        JSONArray learnJsonArray = groupEntity.getLearnJsonArray();
+        List<JSONObject> delList = new ArrayList<>();
+        for (int i = 0; i < learnJsonArray.size(); i++) {
+            JSONObject jsonObject = learnJsonArray.getJSONObject(i);
+            if (word.equals(jsonObject.getString("q"))) {
+                delList.add(jsonObject);
+            }
+        }
+        delList.forEach(learnJsonArray::remove);
+        groupEntity.setLearnJsonArray(learnJsonArray);
+        groupService.save(groupEntity);
+        return "我已经忘记啦！";
+    }
+
 }

@@ -24,25 +24,28 @@ public class GroupEntity {
     @Column(columnDefinition="text")
     private String blackList;
     @Lob
-    @Column(columnDefinition="text")
+    @Column(columnDefinition = "text")
     private String whiteList;
     @Lob
-    @Column(columnDefinition="text")
+    @Column(columnDefinition = "text")
     private String violationList;
     @Lob
-    @Column(columnDefinition="text")
+    @Column(columnDefinition = "text")
     private String qaList;
     @Lob
-    @Column(columnDefinition="text")
+    @Column(columnDefinition = "text")
+    private String learnList;
+    @Lob
+    @Column(columnDefinition = "text")
     private String adminList;
     @Lob
     @Column(columnDefinition = "text")
     private String superAdminList;
     @Lob
-    @Column(columnDefinition="text")
+    @Column(columnDefinition = "text")
     private String biliBiliList;
     @Lob
-    @Column(columnDefinition="text")
+    @Column(columnDefinition = "text")
     private String interceptList;
     @Lob
     @Column(columnDefinition = "text")
@@ -106,21 +109,30 @@ public class GroupEntity {
         this.violationList = jsonArray.toString();
     }
 
-    public JSONArray getQaJsonArray(){
+    public JSONArray getQaJsonArray() {
         if (qaList == null) return new JSONArray();
         else return JSON.parseArray(qaList);
     }
 
-    public void setQaJsonArray(JSONArray jsonArray){
+    public void setQaJsonArray(JSONArray jsonArray) {
         this.qaList = jsonArray.toString();
     }
 
-    public JSONArray getAdminJsonArray(){
+    public JSONArray getLearnJsonArray() {
+        if (learnList == null) return new JSONArray();
+        else return JSON.parseArray(learnList);
+    }
+
+    public void setLearnJsonArray(JSONArray jsonArray) {
+        this.learnList = jsonArray.toString();
+    }
+
+    public JSONArray getAdminJsonArray() {
         if (adminList == null) return new JSONArray();
         else return JSON.parseArray(adminList);
     }
 
-    public void setAdminJsonArray(JSONArray jsonArray){
+    public void setAdminJsonArray(JSONArray jsonArray) {
         this.adminList = jsonArray.toString();
     }
 

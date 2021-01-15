@@ -200,15 +200,18 @@ public class GroupManageEvent {
         if (groupEntity == null) return;
         Message message = e.getMessage();
         if (message.toPath().size() == 0) return;
+        if ("学习".equals(message.toPath().get(0))) return;
+        if ("忘记".equals(message.toPath().get(0))) return;
+        if ("加问答".equals(message.toPath().get(0))) return;
         if ("删问答".equals(message.toPath().get(0))) return;
         String str;
         try {
             str = Message.Companion.firstString(message);
-        }catch (IllegalStateException ex){
+        } catch (IllegalStateException ex) {
             return;
         }
         JSONArray qaJsonArray = groupEntity.getQaJsonArray();
-        for (int i = 0; i < qaJsonArray.size(); i++){
+        for (int i = 0; i < qaJsonArray.size(); i++) {
             JSONObject jsonObject = qaJsonArray.getJSONObject(i);
             String type = jsonObject.getString("type");
             String q = jsonObject.getString("q");
@@ -231,4 +234,46 @@ public class GroupManageEvent {
             }
         }
     }
+
+    @Event
+    public void learn(GroupMessageEvent e) {
+        GroupEntity groupEntity = groupService.findByGroup(e.getGroup().getId());
+        if (groupEntity == null) return;
+        Message message = e.getMessage();
+        if (message.toPath().size() == 0) return;
+        if ("学习".equals(message.toPath().get(0))) return;
+        if ("忘记".equals(message.toPath().get(0))) return;
+        if ("加问答".equals(message.toPath().get(0))) return;
+        if ("删问答".equals(message.toPath().get(0))) return;
+        String str;
+        try {
+            str = Message.Companion.firstString(message);
+        } catch (IllegalStateException ex) {
+            return;
+        }
+        JSONArray learnJsonArray = groupEntity.getLearnJsonArray();
+        for (int i = 0; i < learnJsonArray.size(); i++) {
+            JSONObject jsonObject = learnJsonArray.getJSONObject(i);
+            String type = jsonObject.getString("type");
+            String q = jsonObject.getString("q");
+            boolean status = false;
+            if ("ALL".equals(type)) {
+                if (str.equals(q)) status = true;
+            } else if (str.contains(jsonObject.getString("q"))) status = true;
+            if (status) {
+                Integer maxCount = groupEntity.getMaxCommandCountOnTime();
+                if (maxCount == null) maxCount = -1;
+                if (maxCount > 0) {
+                    String key = "qq" + e.getSender().getId() + q;
+                    Integer num = eh.get(key);
+                    if (num == null) num = 0;
+                    if (num >= maxCount) return;
+                    eh.set(key, ++num);
+                }
+                JSONArray jsonArray = jsonObject.getJSONArray("a");
+                e.getGroup().sendMessage(BotUtils.jsonArrayToMessage(jsonArray));
+            }
+        }
+    }
+
 }

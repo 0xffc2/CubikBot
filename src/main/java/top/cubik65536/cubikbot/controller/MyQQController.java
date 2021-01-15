@@ -35,9 +35,14 @@ public class MyQQController extends QQController {
 
     @Action("查询违规")
     @QMsg(at = true)
-    public String queryVio(QQEntity qqEntity){
+    public String queryVio(QQEntity qqEntity) {
         Integer num = qqEntity.getViolationCount();
         if (num == null) num = 0;
         return "您在本群违规次数为" + num + "次";
+    }
+
+    @Action("草")
+    public String cao() {
+        return "稻草人";
     }
 }

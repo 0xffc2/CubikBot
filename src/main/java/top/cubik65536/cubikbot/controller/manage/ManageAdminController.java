@@ -91,6 +91,8 @@ public class ManageAdminController {
                             "    implementation 'com.github.oshi:oshi-core:5.3.5'\n" +
                             "Java Environement : java 1.8.0_271, Java Compile Encoding : UTF-8\n" +
                             "Main Class : top.cubik65536.cubikbot.Start\n";
+                } else {
+
                 }
                 break;
             case "整点报时": groupEntity.setOnTimeAlarm(status); break;

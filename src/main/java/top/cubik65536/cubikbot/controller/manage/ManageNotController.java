@@ -42,7 +42,7 @@ public class ManageNotController {
     }
 
     @Action("查管")
-    @Synonym({"查黑名单", "查白名单", "查违规词", "查拦截", "查微博监控", "查哔哩哔哩监控", "查问答", "查超管", "查指令限制"})
+    @Synonym({"查黑名单", "查白名单", "查违规词", "查拦截", "查微博监控", "查哔哩哔哩监控", "查问答", "查超管", "查指令限制", "查学习"})
     @QMsg(at = true, atNewLine = true)
     public String query(GroupEntity groupEntity, @PathVar(0) String type){
         StringBuilder sb = new StringBuilder();
@@ -86,13 +86,21 @@ public class ManageNotController {
                     sb.append(jsonObject.getString("q")).append("\n");
                 });
                 break;
+            case "查学习":
+                sb.append("本群已学习内容如下：").append("\n");
+                groupEntity.getLearnJsonArray().forEach(obj -> {
+                    JSONObject jsonObject = (JSONObject) obj;
+                    sb.append(jsonObject.getString("q")).append("\n");
+                });
+                break;
             case "查指令限制":
                 sb.append("本群的指令限制列表如下：").append("\n");
                 groupEntity.getCommandLimitJsonObject().forEach((k, v) -> {
                     sb.append(k).append("->").append(v).append("次").append("\n");
                 });
                 break;
-            default: return null;
+            default:
+                return null;
         }
         return sb.deleteCharAt(sb.length() - 1).toString();
     }

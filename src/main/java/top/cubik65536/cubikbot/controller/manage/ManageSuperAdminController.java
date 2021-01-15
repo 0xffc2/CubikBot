@@ -44,7 +44,7 @@ public class ManageSuperAdminController {
     @Before
     public GroupEntity before(long group, Member qq){
         GroupEntity groupEntity = groupService.findByGroup(group);
-        if (String.valueOf(qq).equals(master) || groupEntity.isSuperAdmin(qq.getId()) || qq.isAdmin()) return groupEntity;
+        if (String.valueOf(qq).equals(master) || groupEntity.isSuperAdmin(qq.getId())) return groupEntity;
         else throw FunKt.getMif().at(qq).plus("您的权限不足，无法执行！！").toThrowable();
     }
 
@@ -195,6 +195,7 @@ public class ManageSuperAdminController {
         JSONArray aJsonArray = BotUtils.messageToJsonArray(a);
         jsonObject.put("q", q);
         jsonObject.put("a", aJsonArray);
+        System.out.println("aJasonArray = " + aJsonArray);
         if (type == null) type = "PARTIAL";
         if (!"ALL".equalsIgnoreCase(type)) type = "PARTIAL";
         else type = "ALL";
