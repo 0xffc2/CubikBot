@@ -61,7 +61,7 @@ public class ManageAdminController {
     @Action("CubikBot {status}")
     @Synonym({"整点报时 {status}", "自动审核 {status}",
             "欢迎语 {status}", "退群拉黑 {status}", "鉴黄 {status}", "色图 {status}",
-            "撤回通知 {status}", "闪照通知 {status}", "复读 {status}"})
+            "撤回通知 {status}", "闪照通知 {status}", "复读机 {status}"})
     @QMsg(at = true)
     public String onOrOff(GroupEntity groupEntity, boolean status, @PathVar(0) String op){
         String systemStatus = " ";
@@ -95,16 +95,35 @@ public class ManageAdminController {
 
                 }
                 break;
-            case "整点报时": groupEntity.setOnTimeAlarm(status); break;
-            case "自动审核": groupEntity.setAutoReview(status); break;
-            case "欢迎语": groupEntity.setWelcomeMsg(status); break;
-            case "退群拉黑": groupEntity.setLeaveGroupBlack(status); break;
-            case "鉴黄": groupEntity.setPic(status); break;
-            case "色图": groupEntity.setColorPic(status); break;
-            case "撤回通知": groupEntity.setRecall(status); break;
-            case "闪照通知": groupEntity.setFlashNotify(status); break;
-            case "复读": groupEntity.setRepeat(status); break;
-            default: return null;
+            case "整点报时":
+                groupEntity.setOnTimeAlarm(status);
+                break;
+            case "自动审核":
+                groupEntity.setAutoReview(status);
+                break;
+            case "欢迎语":
+                groupEntity.setWelcomeMsg(status);
+                break;
+            case "退群拉黑":
+                groupEntity.setLeaveGroupBlack(status);
+                break;
+            case "鉴黄":
+                groupEntity.setPic(status);
+                break;
+            case "色图":
+                groupEntity.setColorPic(status);
+                break;
+            case "撤回通知":
+                groupEntity.setRecall(status);
+                break;
+            case "闪照通知":
+                groupEntity.setFlashNotify(status);
+                break;
+            case "复读机":
+                groupEntity.setRepeat(status);
+                break;
+            default:
+                return null;
         }
         groupService.save(groupEntity);
         if (status) return systemStatus + op + "开启成功";

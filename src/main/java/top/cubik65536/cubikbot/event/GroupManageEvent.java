@@ -270,8 +270,14 @@ public class GroupManageEvent {
                     if (num >= maxCount) return;
                     eh.set(key, ++num);
                 }
+                MessageItemFactory mif = FunKt.getMif();
+                JSONArray jsonArrayForQ = BotUtils.messageToJsonArray(mif.text(q).toMessage());
                 JSONArray jsonArray = jsonObject.getJSONArray("a");
-                e.getGroup().sendMessage(BotUtils.jsonArrayToMessage(jsonArray));
+                if (!(groupEntity.getRepeat()) && jsonArray.equals(jsonArrayForQ)) {
+                    return;
+                } else {
+                    e.getGroup().sendMessage(BotUtils.jsonArrayToMessage(jsonArray));
+                }
             }
         }
     }
