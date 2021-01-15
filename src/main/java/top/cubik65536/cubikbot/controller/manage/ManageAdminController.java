@@ -4,15 +4,24 @@ import com.IceCreamQAQ.Yu.annotation.Action;
 import com.IceCreamQAQ.Yu.annotation.Before;
 import com.IceCreamQAQ.Yu.annotation.Config;
 import com.IceCreamQAQ.Yu.annotation.Synonym;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.icecreamqaq.yuq.FunKt;
 import com.icecreamqaq.yuq.annotation.GroupController;
 import com.icecreamqaq.yuq.annotation.PathVar;
 import com.icecreamqaq.yuq.annotation.QMsg;
+import com.icecreamqaq.yuq.controller.ContextSession;
+import com.icecreamqaq.yuq.entity.Group;
 import com.icecreamqaq.yuq.entity.Member;
+import com.icecreamqaq.yuq.message.Message;
+import com.icecreamqaq.yuq.message.MessageItemFactory;
 import top.cubik65536.cubikbot.entity.GroupEntity;
 import top.cubik65536.cubikbot.service.GroupService;
+import top.cubik65536.cubikbot.utils.BotUtils;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.List;
 
 @GroupController
 @SuppressWarnings("unused")
@@ -129,4 +138,44 @@ public class ManageAdminController {
         if (status) return systemStatus + op + "开启成功";
         else return systemStatus + op + "关闭成功";
     }
+
+    @Action("加问答 {q}")
+    @QMsg(at = true)
+    public String qa(ContextSession session, long qq, GroupEntity groupEntity, String q, Group group, @PathVar(2) String type) {
+        MessageItemFactory mif = FunKt.getMif();
+        group.sendMessage(mif.at(qq).plus("请输入回答语句！！"));
+        Message a = session.waitNextMessage();
+        JSONObject jsonObject = new JSONObject();
+        JSONArray aJsonArray = BotUtils.messageToJsonArray(a);
+        jsonObject.put("q", q);
+        jsonObject.put("a", aJsonArray);
+        System.out.println("aJasonArray = " + aJsonArray);
+        if (type == null) type = "PARTIAL";
+        if (!"ALL".equalsIgnoreCase(type)) type = "PARTIAL";
+        else type = "ALL";
+        jsonObject.put("type", type);
+        JSONArray jsonArray = groupEntity.getQaJsonArray();
+        jsonArray.add(jsonObject);
+        groupEntity.setQaJsonArray(jsonArray);
+        groupService.save(groupEntity);
+        return "添加问答成功！！";
+    }
+
+    @Action("删问答 {q}")
+    @QMsg(at = true)
+    public String delQa(GroupEntity groupEntity, String q) {
+        JSONArray qaJsonArray = groupEntity.getQaJsonArray();
+        List<JSONObject> delList = new ArrayList<>();
+        for (int i = 0; i < qaJsonArray.size(); i++) {
+            JSONObject jsonObject = qaJsonArray.getJSONObject(i);
+            if (q.equals(jsonObject.getString("q"))) {
+                delList.add(jsonObject);
+            }
+        }
+        delList.forEach(qaJsonArray::remove);
+        groupEntity.setQaJsonArray(qaJsonArray);
+        groupService.save(groupEntity);
+        return "删除问答成功！！";
+    }
+
 }
