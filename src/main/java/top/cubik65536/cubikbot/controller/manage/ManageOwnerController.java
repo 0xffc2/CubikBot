@@ -37,7 +37,7 @@ public class ManageOwnerController {
 	@QMsg(at = true)
 	public String addManager(GroupEntity groupEntity, @PathVar(0) String type, Long qqNum) {
 		switch (type) {
-			case "加管":
+			case "加管理":
 				groupEntity.setAdminJsonArray(groupEntity.getAdminJsonArray().fluentAdd(qqNum.toString()));
 				break;
 			case "加超管":
@@ -55,7 +55,7 @@ public class ManageOwnerController {
 	@QMsg(at = true)
 	public String delManager(GroupEntity groupEntity, @PathVar(0) String type, Long qqNum) {
 		switch (type) {
-			case "删管":
+			case "删管理":
 				JSONArray adminJsonArray = groupEntity.getAdminJsonArray();
 				BotUtils.delManager(adminJsonArray, qqNum.toString());
 				groupEntity.setAdminJsonArray(adminJsonArray);
@@ -65,7 +65,8 @@ public class ManageOwnerController {
 				BotUtils.delManager(superAdminJsonArray, qqNum.toString());
 				groupEntity.setSuperAdminJsonArray(superAdminJsonArray);
 				break;
-			default: return null;
+			default:
+				return null;
 		}
 		groupService.save(groupEntity);
 		return type + "成功！！";
