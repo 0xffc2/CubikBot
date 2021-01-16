@@ -67,13 +67,13 @@ public class MenuController {
 
     @Action("help")
     @QMsg(at = true)
-    public String help() {
-        return help("user");
+    public String help(GroupEntity entity) {
+        return help("user", entity);
     }
 
     @Action("help {permission}")
     @QMsg(at = true)
-    public String help(String permission) {
+    public String help(String permission, GroupEntity entity) {
         switch (permission) {
             case "user":
                 return firstAvailableCommands + "user" + sencondAvailableCommands + "\n" + userAvailableCommands;
