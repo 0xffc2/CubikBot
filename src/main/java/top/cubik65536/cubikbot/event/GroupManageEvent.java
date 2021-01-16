@@ -201,6 +201,7 @@ public class GroupManageEvent {
         Message message = e.getMessage();
         if (message.toPath().size() == 0) return;
         if ("学习".equals(message.toPath().get(0))) return;
+        if ("复读".equals(message.toPath().get(0))) return;
         if ("忘记".equals(message.toPath().get(0))) return;
         if ("加问答".equals(message.toPath().get(0))) return;
         if ("删问答".equals(message.toPath().get(0))) return;
@@ -242,6 +243,7 @@ public class GroupManageEvent {
         Message message = e.getMessage();
         if (message.toPath().size() == 0) return;
         if ("学习".equals(message.toPath().get(0))) return;
+        if ("复读".equals(message.toPath().get(0))) return;
         if ("忘记".equals(message.toPath().get(0))) return;
         if ("加问答".equals(message.toPath().get(0))) return;
         if ("删问答".equals(message.toPath().get(0))) return;

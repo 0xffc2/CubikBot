@@ -1,6 +1,7 @@
 package top.cubik65536.cubikbot.logic;
 
 import com.IceCreamQAQ.Yu.annotation.AutoBind;
+import top.cubik65536.cubikbot.entity.GroupEntity;
 import top.cubik65536.cubikbot.pojo.Result;
 
 import java.io.IOException;
@@ -106,4 +107,9 @@ public interface ToolLogic {
     String uploadImage(byte[] bytes);
 
     String abstractWords(String word);
+
+    boolean alreadyLearned(String word, GroupEntity groupEntity);
+
+    boolean qaExisted(String word, GroupEntity groupEntity);
+
 }

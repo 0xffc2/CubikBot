@@ -16,6 +16,7 @@ import com.icecreamqaq.yuq.entity.Member;
 import com.icecreamqaq.yuq.message.Message;
 import com.icecreamqaq.yuq.message.MessageItemFactory;
 import top.cubik65536.cubikbot.entity.GroupEntity;
+import top.cubik65536.cubikbot.logic.ToolLogic;
 import top.cubik65536.cubikbot.service.GroupService;
 import top.cubik65536.cubikbot.utils.BotUtils;
 
@@ -30,14 +31,16 @@ public class ManageAdminController {
     private String master;
     @Inject
     private GroupService groupService;
+    @Inject
+    private ToolLogic toolLogic;
 
     @Before
-    public GroupEntity before(Member qq, long group){
+    public GroupEntity before(Member qq, long group) {
         GroupEntity groupEntity = groupService.findByGroup(group);
         if (groupEntity == null) groupEntity = new GroupEntity(group);
-        if (groupEntity.isAdmin(qq.getId()) || qq.getId() == Long.parseLong(master) || qq.isAdmin()){
+        if (groupEntity.isAdmin(qq.getId()) || qq.getId() == Long.parseLong(master) || qq.isAdmin()) {
             return groupEntity;
-        }else throw FunKt.getMif().at(qq).plus("您的权限不足，无法执行！！").toThrowable();
+        } else throw FunKt.getMif().at(qq).plus("您的权限不足，无法执行！！").toThrowable();
     }
 
     @Action("清屏")
@@ -142,6 +145,7 @@ public class ManageAdminController {
     @Action("加问答 {q}")
     @QMsg(at = true)
     public String qa(ContextSession session, long qq, GroupEntity groupEntity, String q, Group group, @PathVar(2) String type) {
+        if (toolLogic.qaExisted(q, groupEntity)) return "添加问答失败！！该问答已存在！！";
         MessageItemFactory mif = FunKt.getMif();
         group.sendMessage(mif.at(qq).plus("请输入回答语句！！"));
         Message a = session.waitNextMessage();

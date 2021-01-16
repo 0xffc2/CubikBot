@@ -518,21 +518,24 @@ public class ToolController {
     public String learn(ContextSession session, long qq, GroupEntity groupEntity, Group group, @PathVar(2) String type, String learn, String say) {
         if (learn.equals("草")) {
             return "无法学习该词汇！";
+        } else if (toolLogic.alreadyLearned(learn, groupEntity)) {
+            return "无法学习该词汇！该词汇已被学习！";
+        } else {
+            MessageItemFactory mif = FunKt.getMif();
+            JSONObject jsonObject = new JSONObject();
+            JSONArray aJsonArray = BotUtils.messageToJsonArray(mif.text(say).toMessage());
+            jsonObject.put("q", learn);
+            jsonObject.put("a", aJsonArray);
+            if (type == null) type = "PARTIAL";
+            if (!"ALL".equalsIgnoreCase(type)) type = "PARTIAL";
+            else type = "ALL";
+            jsonObject.put("type", type);
+            JSONArray jsonArray = groupEntity.getLearnJsonArray();
+            jsonArray.add(jsonObject);
+            groupEntity.setLearnJsonArray(jsonArray);
+            groupService.save(groupEntity);
+            return "学习成功！快对我说 " + learn + " 试试吧！";
         }
-        MessageItemFactory mif = FunKt.getMif();
-        JSONObject jsonObject = new JSONObject();
-        JSONArray aJsonArray = BotUtils.messageToJsonArray(mif.text(say).toMessage());
-        jsonObject.put("q", learn);
-        jsonObject.put("a", aJsonArray);
-        if (type == null) type = "PARTIAL";
-        if (!"ALL".equalsIgnoreCase(type)) type = "PARTIAL";
-        else type = "ALL";
-        jsonObject.put("type", type);
-        JSONArray jsonArray = groupEntity.getLearnJsonArray();
-        jsonArray.add(jsonObject);
-        groupEntity.setLearnJsonArray(jsonArray);
-        groupService.save(groupEntity);
-        return "学习成功！快对我说 " + learn + " 试试吧！";
     }
 
     @Action("复读 {word}")

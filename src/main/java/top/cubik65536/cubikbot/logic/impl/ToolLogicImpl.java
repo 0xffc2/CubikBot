@@ -12,6 +12,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import top.cubik65536.cubikbot.entity.GroupEntity;
 import top.cubik65536.cubikbot.logic.ToolLogic;
 import top.cubik65536.cubikbot.pojo.Result;
 import top.cubik65536.cubikbot.pojo.UA;
@@ -759,5 +760,41 @@ public class ToolLogicImpl implements ToolLogic {
             e.printStackTrace();
             return "生成失败，请重试！！";
         }
+    }
+
+    @Override
+    public boolean alreadyLearned(String word, GroupEntity groupEntity) {
+        JSONArray learnJsonArray = groupEntity.getLearnJsonArray();
+        for (int i = 0; i < learnJsonArray.size(); i++) {
+            JSONObject jsonObject = learnJsonArray.getJSONObject(i);
+            String type = jsonObject.getString("type");
+            String q = jsonObject.getString("q");
+            boolean status = false;
+            if ("ALL".equals(type)) {
+                if (word.equals(q)) status = true;
+            } else if (word.contains(jsonObject.getString("q"))) status = true;
+            if (status) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean qaExisted(String word, GroupEntity groupEntity) {
+        JSONArray qaJsonArray = groupEntity.getQaJsonArray();
+        for (int i = 0; i < qaJsonArray.size(); i++) {
+            JSONObject jsonObject = qaJsonArray.getJSONObject(i);
+            String type = jsonObject.getString("type");
+            String q = jsonObject.getString("q");
+            boolean status = false;
+            if ("ALL".equals(type)) {
+                if (word.equals(q)) status = true;
+            } else if (word.contains(jsonObject.getString("q"))) status = true;
+            if (status) {
+                return true;
+            }
+        }
+        return false;
     }
 }
