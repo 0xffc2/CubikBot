@@ -3,7 +3,6 @@ package top.cubik65536.cubikbot.controller;
 import com.IceCreamQAQ.Yu.annotation.Action;
 import com.IceCreamQAQ.Yu.annotation.Before;
 import com.IceCreamQAQ.Yu.annotation.Config;
-import com.icecreamqaq.yuq.FunKt;
 import com.icecreamqaq.yuq.annotation.GroupController;
 import com.icecreamqaq.yuq.annotation.QMsg;
 import com.icecreamqaq.yuq.entity.Member;
@@ -35,16 +34,18 @@ public class MenuController {
     private GroupService groupService;
 
     @Before
-    public GroupEntity before(long group, Member qq) {
+    public void before(long group, Member qq) {
         GroupEntity groupEntity = groupService.findByGroup(group);
-        if (String.valueOf(qq).equals(master) || groupEntity.isSuperAdmin(qq.getId())) return groupEntity;
-        else throw FunKt.getMif().at(qq).plus("您的权限不足，无法执行此命令！！").toThrowable();
+        if (groupEntity.isSuperAdmin(qq.getId())) permissionsGroup = "admin";
+        else if (String.valueOf(qq).equals(master) || groupEntity.isSuperAdmin(qq.getId()))
+            permissionsGroup = "superAdmin";
+        else permissionsGroup = "user";
     }
 
     private String firstAvailableCommands = "欢迎使用CubikBot，查询权限组{";
     private String sencondAvailableCommands = "}，该权限组可使用的指令有：\n注意，每个参数前后加空格（最后一个参数不需要），不要括号！";
     private String userAvailableCommands = "【help】获取可用指令！\n" +
-            "【help {权限组}】获得相关权限组可用指令！" +
+            "【help {权限组}】获得相关权限组可用指令！\n" +
             "【学习 {关键词} {要我说的话}】让机器人学习一个关键词！当你说的话里有关键词的时候机器人会回复{要我说的话}里的内容！\n" +
             "【复读 {关键词}】让机器人复读一个关键词！当你说的话里有关键词的时候机器人会复读，需要管理开启！\n" +
             "【草】稻草人模式，需要管理打开\n" +
@@ -77,6 +78,7 @@ public class MenuController {
             case "user":
                 return firstAvailableCommands + "user" + sencondAvailableCommands + "\n" + userAvailableCommands;
             case "admin":
+                if (permissionsGroup.equals("user")) return "您的权限不足，无法执行此命令！！";
                 return firstAvailableCommands + "admin" + sencondAvailableCommands + "\n" + adminAvailableCommands;
             default:
                 return null;
@@ -86,41 +88,49 @@ public class MenuController {
     // kukubot自带菜单，只开放给超级管理
     @Action("helpOp") //原@Action("help")
     public String helpOp(GroupEntity entity) {
+        if (!(permissionsGroup.equals("superAdmin"))) return "您的权限不足，无法执行此命令！！";
         return parse("help", MenuController.class);
     }
 
     @Action("tool")
     public String tool(GroupEntity entity) {
+        if (!(permissionsGroup.equals("superAdmin"))) return "您的权限不足，无法执行此命令！！";
         return parse("tool", ToolController.class);
     }
 
     @Action("bilibili")
     public String bl(GroupEntity entity) {
+        if (!(permissionsGroup.equals("superAdmin"))) return "您的权限不足，无法执行此命令！！";
         return parse("bilibili", BiliBiliLoginController.class, BiliBiliController.class);
     }
 
     @Action("bot")
     public String bot(GroupEntity entity) {
+        if (!(permissionsGroup.equals("superAdmin"))) return "您的权限不足，无法执行此命令！！";
         return parse("bot", BotController.class);
     }
 
     @Action("manage")
     public String manage(GroupEntity entity) {
+        if (!(permissionsGroup.equals("superAdmin"))) return "您的权限不足，无法执行此命令！！";
         return parse("manage", ManageNotController.class, ManageSuperAdminController.class, ManageAdminController.class);
     }
 
     @Action("qq")
     public String qq(GroupEntity entity) {
+        if (!(permissionsGroup.equals("superAdmin"))) return "您的权限不足，无法执行此命令！！";
         return parse("qq", QQLoginController.class, BindQQController.class, QQJobController.class, QQQuickLoginController.class);
     }
 
     @Action("setting")
     public String setting(GroupEntity entity) {
+        if (!(permissionsGroup.equals("superAdmin"))) return "您的权限不足，无法执行此命令！！";
         return parse("设置", SettingController.class);
     }
 
     @Action("菜单")
     public String menu(GroupEntity entity) {
+        if (!(permissionsGroup.equals("superAdmin"))) return "您的权限不足，无法执行此命令！！";
         return "https://api.kuku.me/menu";
     }
 
