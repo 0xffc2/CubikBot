@@ -36,12 +36,7 @@ tasks.withType(JavaCompile) {
 }
 
 jar {
-    manifestContentCharset 'utf-8'
-    metadataCharset 'utf-8'
     manifest {
         attributes ('Main-Class': 'top.cubik65536.cubikbot.Start')
-    }
-    from {
-        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
