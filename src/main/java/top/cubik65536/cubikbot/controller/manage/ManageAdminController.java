@@ -82,7 +82,7 @@ public class ManageAdminController {
                 groupEntity.setStatus(status);
                 if (status) {
                     systemStatus = "\nWelcome to CubikBot | Based on YuQ-Mirai | Powered by Cubik Network\n" +
-                            "Version: 1.0-ALPHA | THIS IS AN INTERNAL TEST VERSION!!!\n" +
+                            "Version: 1.0-beta.3 | THIS IS A TEST VERSION!!!\n" +
                             "Plgins : id 'java'\n" +
                             "    id \"com.github.johnrengelman.shadow\" version \"6.1.0\"\n" +
                             "    id 'org.jetbrains.kotlin.jvm' version '1.4.21'" +
