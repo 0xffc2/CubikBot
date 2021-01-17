@@ -3,9 +3,13 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0871a0c728cb433db6707cdac8c7fb3e)](https://app.codacy.com/gh/Cubik65536/CubikBot?utm_source=github.com&utm_medium=referral&utm_content=Cubik65536/CubikBot&utm_campaign=Badge_Grade)
 ![Java CI with Gradle](https://github.com/Cubik65536/CubikBot/workflows/Java%20CI%20with%20Gradle/badge.svg)
 [![LICENSE](https://img.shields.io/github/license/Cubik65536/CubikBot.svg?style=popout)](https://github.com/Cubik65536/CubikBot/blob/master/LICENSE)
-[![Release](https://img.shields.io/github/v/release/Cubik65536/CubikBot)](https://github.com/Cubik65536/CubikBot/releases)
-[![Release](https://img.shields.io/github/v/release/Cubik65536/CubikBot?include_prereleases)](https://github.com/Cubik65536/CubikBot/releases)
-![Stars](https://img.shields.io/github/stars/Cubik65536/CubikBot)
+[![Release](https://img.shields.io/github/v/release/Cubik65536/CubikBot?color=blue&label=Latest%20release)](https://github.com/Cubik65536/CubikBot/releases)
+[![Release](https://img.shields.io/github/v/release/Cubik65536/CubikBot?color=orange&include_prereleases&label=Latest%20release%20including%20Pre-releases)](https://github.com/Cubik65536/CubikBot/releases)
+![Stars](https://img.shields.io/github/stars/Cubik65536/CubikBot?logo=github)
+
+![repo size](https://img.shields.io/github/repo-size/Cubik65536/CubikBot)
+![Lines of code](https://img.shields.io/tokei/lines/github/Cubik65536/CubikBot?label=Lines%20of%20code)
+![Java Version](https://img.shields.io/badge/Java%20Version-1.8.0_271-orange)
 
 **基于`YuQ-Mirai`的不好用的机器人**
 
