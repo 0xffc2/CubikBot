@@ -120,20 +120,23 @@ public class SettingController {
     @Action("加超管 {groupNum} {qqNum}")
     @Synonym({"删超管 {groupNum} {qqNum}"})
     public String addSuperAdmin(long groupNum, Long qqNum, @PathVar(0) String str){
+        String mode;
         Map<Long, Group> groups = FunKt.getYuq().getGroups();
         if (groups.containsKey(groupNum)) {
             GroupEntity groupEntity = groupService.findByGroup(groupNum);
             if (groupEntity == null) groupEntity = new GroupEntity(groupNum);
-            if (str.startsWith("加"))
+            if (str.startsWith("加")) {
                 groupEntity.setSuperAdminJsonArray(groupEntity.getSuperAdminJsonArray().fluentAdd(qqNum.toString()));
-            else if (str.startsWith("删")){
+                mode = "添加";
+            } else if (str.startsWith("删")) {
                 JSONArray superAdminJsonArray = groupEntity.getSuperAdminJsonArray();
                 BotUtils.delManager(superAdminJsonArray, qqNum.toString());
                 groupEntity.setSuperAdminJsonArray(superAdminJsonArray);
-            }else return null;
+                mode = "删除";
+            } else return null;
             groupService.save(groupEntity);
-            return String.format("添加{%s}群的{%s}为超管成功！！", groupNum, qqNum);
-        }else return "机器人并没有加入这个群！！";
+            return String.format(mode + "{%s}群的{%s}为超管成功！！", groupNum, qqNum);
+        } else return "机器人并没有加入这个群！！";
     }
 
 }
