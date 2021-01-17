@@ -36,7 +36,7 @@ public class MenuController {
     @Before
     public void before(long group, Member qq) {
         GroupEntity groupEntity = groupService.findByGroup(group);
-        if (groupEntity.isSuperAdmin(qq.getId())) permissionsGroup = "admin";
+        if (groupEntity.isAdmin(qq.getId())) permissionsGroup = "admin";
         else if (String.valueOf(qq).equals(master) || groupEntity.isSuperAdmin(qq.getId()))
             permissionsGroup = "superAdmin";
         else permissionsGroup = "user";
