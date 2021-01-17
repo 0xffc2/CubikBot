@@ -1,5 +1,7 @@
 # CubikBot
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/0871a0c728cb433db6707cdac8c7fb3e)](https://app.codacy.com/gh/Cubik65536/CubikBot?utm_source=github.com&utm_medium=referral&utm_content=Cubik65536/CubikBot&utm_campaign=Badge_Grade)
+
 **基于`YuQ-Mirai`的不好用的机器人**
 
 #### 感谢以下项目为我们提供环境
