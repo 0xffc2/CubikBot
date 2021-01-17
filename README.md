@@ -1,6 +1,11 @@
 # CubikBot
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0871a0c728cb433db6707cdac8c7fb3e)](https://app.codacy.com/gh/Cubik65536/CubikBot?utm_source=github.com&utm_medium=referral&utm_content=Cubik65536/CubikBot&utm_campaign=Badge_Grade)
+![Java CI with Gradle](https://github.com/Cubik65536/CubikBot/workflows/Java%20CI%20with%20Gradle/badge.svg)
+[![LICENSE](https://img.shields.io/github/license/Cubik65536/CubikBot.svg?style=popout)](https://github.com/Cubik65536/CubikBot/blob/master/LICENSE)
+[![Release](https://img.shields.io/github/v/release/Cubik65536/CubikBot)](https://github.com/Cubik65536/CubikBot/releases)
+[![Release](https://img.shields.io/github/v/release/Cubik65536/CubikBot?include_prereleases)](https://github.com/Cubik65536/CubikBot/releases)
+![Stars](https://img.shields.io/github/stars/Cubik65536/CubikBot)
 
 **基于`YuQ-Mirai`的不好用的机器人**
 
