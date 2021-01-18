@@ -1,5 +1,6 @@
 package top.cubik65536.cubikbot.event;
 
+import com.IceCreamQAQ.Yu.annotation.Config;
 import com.IceCreamQAQ.Yu.annotation.Event;
 import com.IceCreamQAQ.Yu.annotation.EventListener;
 import com.alibaba.fastjson.JSONArray;
@@ -27,6 +28,8 @@ import java.util.List;
 @EventListener
 @SuppressWarnings("unused")
 public class MonitorEvent {
+    @Config("YuQ.Mirai.bot.master")
+    private String master;
     @Inject
     private GroupService groupService;
     @Inject
@@ -104,6 +107,7 @@ public class MonitorEvent {
         RecallEntity recallEntity = new RecallEntity(null, qq, e.getGroup().getId(), messageEntity, new Date());
         recallService.save(recallEntity);
         GroupEntity groupEntity = groupService.findByGroup(e.getGroup().getId());
+        if (String.valueOf(qq).equals(master) || groupEntity.isSuperAdmin(qq) || groupEntity.isAdmin(qq)) return;
         if (groupEntity == null) return;
         if (Boolean.valueOf(true).equals(groupEntity.getRecall())){
             if (!e.getSender().equals(e.getOperator())) return;
