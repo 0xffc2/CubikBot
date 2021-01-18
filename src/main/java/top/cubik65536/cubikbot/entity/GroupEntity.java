@@ -63,6 +63,7 @@ public class GroupEntity {
     private Integer maxCommandCountOnTime;
     private Boolean locMonitor;
     private Boolean flashNotify;
+    private Boolean cao;
     private Boolean repeat;
 
     public GroupEntity(Long group){
@@ -79,6 +80,7 @@ public class GroupEntity {
         this.flashNotify = false;
         this.maxCommandCountOnTime = -1;
         this.maxViolationCount = 5;
+        this.cao = true;
         this.repeat = true;
     }
 

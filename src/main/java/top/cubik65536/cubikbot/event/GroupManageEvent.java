@@ -253,7 +253,12 @@ public class GroupManageEvent {
         } catch (IllegalStateException ex) {
             return;
         }
+        MessageItemFactory mif = FunKt.getMif();
         JSONArray learnJsonArray = groupEntity.getLearnJsonArray();
+        if ((message.toPath().get(0).startsWith("草") || message.toPath().get(0).startsWith("cao") || message.toPath().get(0).startsWith("艹")) && (groupEntity.getCao())) {
+            e.getGroup().sendMessage(mif.text("稻 草 人").toMessage());
+            return;
+        }
         for (int i = 0; i < learnJsonArray.size(); i++) {
             JSONObject jsonObject = learnJsonArray.getJSONObject(i);
             String type = jsonObject.getString("type");
@@ -272,7 +277,6 @@ public class GroupManageEvent {
                     if (num >= maxCount) return;
                     eh.set(key, ++num);
                 }
-                MessageItemFactory mif = FunKt.getMif();
                 JSONArray jsonArrayForQ = BotUtils.messageToJsonArray(mif.text(q).toMessage());
                 JSONArray jsonArray = jsonObject.getJSONArray("a");
                 if (!(groupEntity.getRepeat()) && jsonArray.equals(jsonArrayForQ)) {

@@ -73,7 +73,7 @@ public class ManageAdminController {
     @Action("CubikBot {status}")
     @Synonym({"整点报时 {status}", "自动审核 {status}",
             "欢迎语 {status}", "退群拉黑 {status}", "鉴黄 {status}", "色图 {status}",
-            "撤回通知 {status}", "闪照通知 {status}", "复读机 {status}"})
+            "撤回通知 {status}", "闪照通知 {status}", "稻草人 {status}", "复读机 {status}"})
     @QMsg(at = true)
     public String onOrOff(GroupEntity groupEntity, boolean status, @PathVar(0) String op){
         String systemStatus = " ";
@@ -130,6 +130,9 @@ public class ManageAdminController {
                 break;
             case "闪照通知":
                 groupEntity.setFlashNotify(status);
+                break;
+            case "稻草人":
+                groupEntity.setCao(status);
                 break;
             case "复读机":
                 groupEntity.setRepeat(status);

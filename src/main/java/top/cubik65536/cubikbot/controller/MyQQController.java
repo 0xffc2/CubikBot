@@ -41,8 +41,9 @@ public class MyQQController extends QQController {
         return "您在本群违规次数为" + num + "次";
     }
 
-    @Action("草")
-    public String cao() {
-        return "稻草人";
-    }
+//    @Action("草")
+//    @Synonym("草！")
+//    public String cao() {
+//        return "稻 草 人";
+//    }
 }
