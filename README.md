@@ -25,7 +25,7 @@
 * [YuQ-Mirai-SuperDemo](https://github.com/YuQWorks/YuQ-SuperDemo)
 
 **由于Mirai-Demo在我开始该项目之时版本落后，我使用了 [kuku-bot](https://github.com/kukume/kuku-bot)
-的源代码作为该程序的初始代码（2021-01-13版），所有更新均在此代码上实现，感谢kuku-bot开发者做出了一个非常好用的机器人。**
+的源代码作为该程序的初始代码（2021-01-13版），所有更新均在此代码上实现，以后会逐步进行改变，可能会使用来自KukuBot的函数实现一些功能，但是希望能写出自己的风格。感谢kuku-bot开发者做出了一个非常好用的机器人。**
 
 ------
 
