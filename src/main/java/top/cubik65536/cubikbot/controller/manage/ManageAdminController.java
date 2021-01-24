@@ -72,7 +72,7 @@ public class ManageAdminController {
 
     @Action("CubikBot {status}")
     @Synonym({"整点报时 {status}", "自动审核 {status}",
-            "欢迎语 {status}", "退群拉黑 {status}", "鉴黄 {status}", "色图 {status}",
+            "欢迎语 {status}", "退群拉黑 {status}", "鉴黄 {status}", "图片 {status}",
             "撤回通知 {status}", "闪照通知 {status}", "稻草人 {status}", "复读机 {status}"})
     @QMsg(at = true)
     public String onOrOff(GroupEntity groupEntity, boolean status, @PathVar(0) String op){
@@ -81,8 +81,9 @@ public class ManageAdminController {
             case "CubikBot":
                 groupEntity.setStatus(status);
                 if (status) {
-                    systemStatus = "\nWelcome to CubikBot | Based on YuQ-Mirai | Powered by Cubik Network\n" +
-                            "Version: 1.0-beta.3 | THIS IS A TEST VERSION!!!\n" +
+                    systemStatus = "\nWelcode to CubikBot\n" +
+                            "Based on YuQ-Mirai | Powered by Cubik Network\n" +
+                            "Version: 1.1-alpha | THIS IS AN INTERNAL TEST VERSION!!!\n" +
                             "Plgins : id 'java'\n" +
                             "    id \"com.github.johnrengelman.shadow\" version \"6.1.0\"\n" +
                             "    id 'org.jetbrains.kotlin.jvm' version '1.4.21'" +
@@ -122,7 +123,7 @@ public class ManageAdminController {
             case "鉴黄":
                 groupEntity.setPic(status);
                 break;
-            case "色图":
+            case "图片":
                 groupEntity.setColorPic(status);
                 break;
             case "撤回通知":
@@ -143,6 +144,19 @@ public class ManageAdminController {
         groupService.save(groupEntity);
         if (status) return systemStatus + op + "开启成功";
         else return systemStatus + op + "关闭成功";
+    }
+
+    @Action("图片限时 {start} {end}")
+    @QMsg(at = true)
+    public String setPicTime(ContextSession session, long qq, GroupEntity groupEntity, Group group, String start, String end) {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("start", start);
+        jsonObject.put("end", end);
+        JSONArray jsonArray = new JSONArray();
+        jsonArray.add(jsonObject);
+        groupEntity.setPicTimeJsonArray(jsonArray);
+        groupService.save(groupEntity);
+        return "图片限时设置成功！开始时间为：" + start + "，结束时间为：" + end;
     }
 
     @Action("加问答 {q}")

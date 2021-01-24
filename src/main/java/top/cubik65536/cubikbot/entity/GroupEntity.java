@@ -37,6 +37,9 @@ public class GroupEntity {
     private String learnList;
     @Lob
     @Column(columnDefinition = "text")
+    private String picTimeList;
+    @Lob
+    @Column(columnDefinition = "text")
     private String adminList;
     @Lob
     @Column(columnDefinition = "text")
@@ -127,6 +130,21 @@ public class GroupEntity {
 
     public void setLearnJsonArray(JSONArray jsonArray) {
         this.learnList = jsonArray.toString();
+    }
+
+    public JSONArray getPicTimeJsonArray() {
+        if (picTimeList == null) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("start", "00:00");
+            jsonObject.put("end", "00:00");
+            JSONArray jsonArray = new JSONArray();
+            jsonArray.add(jsonObject);
+            return jsonArray;
+        } else return JSON.parseArray(picTimeList);
+    }
+
+    public void setPicTimeJsonArray(JSONArray jsonArray) {
+        this.picTimeList = jsonArray.toString();
     }
 
     public JSONArray getAdminJsonArray() {

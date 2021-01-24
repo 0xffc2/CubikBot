@@ -128,7 +128,7 @@ public class ManageNotController {
     @QMsg(at = true, atNewLine = true)
     public String kai(GroupEntity groupEntity){
         StringBuilder sb = new StringBuilder("本群开关情况如下：\n");
-        sb.append("色图：").append(this.boolToStr(groupEntity.getColorPic())).append("、").append(groupEntity.getColorPicType()).append("\n");
+        sb.append("图片：").append(this.boolToStr(groupEntity.getColorPic())).append("、").append(groupEntity.getColorPicType()).append("\n");
         sb.append("鉴黄：").append(this.boolToStr(groupEntity.getPic())).append("\n");
         sb.append("欢迎语：").append(this.boolToStr(groupEntity.getWelcomeMsg())).append("\n");
         sb.append("退群拉黑：").append(this.boolToStr(groupEntity.getLeaveGroupBlack())).append("\n");

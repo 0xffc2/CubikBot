@@ -17,11 +17,9 @@ import com.icecreamqaq.yuq.job.RainInfo;
 import com.icecreamqaq.yuq.message.Image;
 import com.icecreamqaq.yuq.message.Message;
 import com.icecreamqaq.yuq.message.MessageItemFactory;
-import okhttp3.Response;
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
 import oshi.hardware.GlobalMemory;
-import top.cubik65536.cubikbot.entity.ConfigEntity;
 import top.cubik65536.cubikbot.entity.GroupEntity;
 import top.cubik65536.cubikbot.logic.QQAILogic;
 import top.cubik65536.cubikbot.logic.ToolLogic;
@@ -218,49 +216,11 @@ public class ToolController {
         return toolLogic.searchQuestion(question);
     }
 
-    @Action("色图")
-    public Message colorPic(long group, long qq) throws IOException {
-        GroupEntity groupEntity = groupService.findByGroup(group);
-        if (groupEntity == null || groupEntity.getColorPic() == null || !groupEntity.getColorPic())
-            return FunKt.getMif().at(qq).plus("该功能已关闭！！");
-        String type = groupEntity.getColorPicType();
-        if ("lolicon".equals(type) || "loliconR18".equals(type)){
-            ConfigEntity configEntity = configService.findByType("loLiCon");
-            if (configEntity == null) return FunKt.getMif().at(qq).plus("您还没有配置lolicon的apiKey，无法获取色图！！");
-            String apiKey = configEntity.getContent();
-            Result<Map<String, String>> result = toolLogic.colorPicByLoLiCon(apiKey, type.equals("loliconR18"));
-            Map<String, String> map = result.getData();
-            if (map == null) return FunKt.getMif().at(qq).plus(result.getMessage());
-            byte[] by = toolLogic.piXivPicProxy(map.get("url"));
-            return FunKt.getMif().imageByInputStream(new ByteArrayInputStream(by)).toMessage();
-        }else if (type.contains("danbooru")){
-            String[] arr = type.split("-");
-            String danType = null;
-            if (arr.length > 1) danType = arr[1];
-            String url;
-            if (danType == null) url = "https://api.kuku.me/danbooru";
-            else url = "https://api.kuku.me/danbooru?type=" + danType;
-            Response response = OkHttpUtils.get(url);
-            if (response.header("content-type") != null){
-                return FunKt.getMif().at(qq).plus("danbooru的tags类型不匹配，请重新设置tags类型，具体tag类型可前往https://danbooru.donmai.us/" +
-                        "查看，如果tag中带空格，请用_替换");
-            }else {
-                byte[] bytes = OkHttpUtils.getBytes(response);
-                return FunKt.getMif().imageByInputStream(new ByteArrayInputStream(bytes)).toMessage();
-            }
-        }else return Message.Companion.toMessage("色图类型不匹配！！");
-    }
-
     @Action("qr/{content}")
     @QMsg(at = true, atNewLine = true)
     public Message creatQrCode(String content) throws IOException {
         byte[] bytes = toolLogic.creatQr(content);
         return FunKt.getMif().imageByInputStream(new ByteArrayInputStream(bytes)).toMessage();
-    }
-
-    @Action("看美女")
-    public Image girl() throws IOException {
-        return FunKt.getMif().imageByUrl(toolLogic.girlImage());
     }
 
     @QMsg(at = true)
@@ -484,16 +444,6 @@ public class ToolController {
     @Action("genshin {id}")
     public String queryGenShinUserInfo(long id) throws IOException {
         return toolLogic.genShinUserInfo(id);
-    }
-
-    @Action("cosplay")
-    public Message cosplay() throws IOException {
-        return FunKt.getMif().imageByByteArray(toolLogic.cosplay()).toMessage();
-    }
-
-    @Action("写真")
-    public Image photo() throws IOException {
-        return FunKt.getMif().imageByByteArray(toolLogic.photo());
     }
 
     @Action("kuku上传 {image}")
