@@ -197,7 +197,7 @@ public class ToolController {
     @Action("学习 {learn} {say}")
     @QMsg(at = true)
     public String learn(ContextSession session, long qq, GroupEntity groupEntity, Group group, @PathVar(2) String type, String learn, String say) {
-        if (learn.equals("草")) {
+        if (learn.equals("草") || learn.contains("早") || learn.contains("晚")) {
             return "无法学习该词汇！";
         } else if (toolLogic.alreadyLearned(learn, groupEntity)) {
             return "无法学习该词汇！该词汇已被学习！";
