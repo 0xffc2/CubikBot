@@ -68,6 +68,7 @@ public class GroupEntity {
     private Boolean flashNotify;
     private Boolean cao;
     private Boolean repeat;
+    private Boolean peeking;
 
     public GroupEntity(Long group){
         this.group = group;
@@ -85,6 +86,7 @@ public class GroupEntity {
         this.maxViolationCount = 5;
         this.cao = true;
         this.repeat = true;
+        this.peeking = false;
     }
 
     public JSONArray getBlackJsonArray(){

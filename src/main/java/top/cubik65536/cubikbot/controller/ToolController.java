@@ -25,14 +25,18 @@ import top.cubik65536.cubikbot.service.ConfigService;
 import top.cubik65536.cubikbot.service.GroupService;
 import top.cubik65536.cubikbot.service.MessageService;
 import top.cubik65536.cubikbot.utils.BotUtils;
+import top.cubik65536.cubikbot.utils.OkHttpUtils;
 
 import javax.inject.Inject;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("unused")
@@ -68,9 +72,11 @@ public class ToolController {
         startTime = LocalDateTime.now();
     }
 
+    private final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(4);
+
     @Action("统计")
     @Synonym({"运行状态"})
-    public String status(){
+    public String status() {
         SystemInfo systemInfo = new SystemInfo();
         CentralProcessor processor = systemInfo.getHardware().getProcessor();
         long[] prevTicks = processor.getSystemCpuLoadTicks();
@@ -150,12 +156,42 @@ public class ToolController {
         if(mbNumber<FORMAT){
             return new DecimalFormat("#.##MB").format(mbNumber);
         }
-        double gbNumber = mbNumber/FORMAT;
-        if(gbNumber<FORMAT){
+        double gbNumber = mbNumber / FORMAT;
+        if (gbNumber < FORMAT) {
             return new DecimalFormat("#.##GB").format(gbNumber);
         }
-        double tbNumber = gbNumber/FORMAT;
+        double tbNumber = gbNumber / FORMAT;
         return new DecimalFormat("#.##TB").format(tbNumber);
+    }
+
+    @Action("窥屏检测")
+    public void checkPeeping(GroupEntity groupEntity, Group group, long qq) {
+        if (groupEntity == null || groupEntity.getPeeking() == null || !groupEntity.getPeeking())
+            throw FunKt.getMif().at(qq).plus("该功能已关闭！！").toThrowable();
+        String random = BotUtils.randomNum(4);
+        group.sendMessage(FunKt.getMif().jsonEx("{\"app\":\"com.tencent.miniapp\",\"desc\":\"\",\"view\":\"notification\",\"ver\":\"1.0.0.11\",\"prompt\":\"QQ程序\",\"appID\":\"\",\"sourceName\":\"\",\"actionData\":\"\",\"actionData_A\":\"\",\"sourceUrl\":\"\",\"meta\":{\"notification\":{\"appInfo\":{\"appName\":\"窥屏检测中...\",\"appType\":4,\"appid\":1109659848,\"iconUrl\":\"https:\\/\\/api.kuku.me\\/tool\\/peeping\\/check\\/" + random + "\"},\"button\":[],\"data\":[],\"emphasis_keyword\":\"\",\"title\":\"请等待15s\"}},\"text\":\"\",\"extraApps\":[],\"sourceAd\":\"\",\"extra\":\"\"}").toMessage());
+        executorService.schedule(() -> {
+            String msg;
+            try {
+                JSONObject jsonObject = OkHttpUtils.getJson("https://api.kuku.me/tool/peeping/result/" + random);
+                if (jsonObject.getInteger("code") == 200) {
+                    StringBuilder sb = new StringBuilder();
+                    JSONArray jsonArray = jsonObject.getJSONObject("data").getJSONArray("list");
+                    sb.append("检测到共有").append(jsonArray.size()).append("位小伙伴在窥屏").append("\n");
+                    for (int i = 0; i < jsonArray.size(); i++) {
+                        JSONObject singleJsonObject = jsonArray.getJSONObject(i);
+                        sb.append(singleJsonObject.getString("ip"))
+                                .append("-").append(singleJsonObject.getString("address"))
+                                /*.append("-").append(singleJsonObject.getString("simpleUserAgent"))*/.append("\n");
+                    }
+                    msg = BotUtils.removeLastLine(sb);
+                } else msg = jsonObject.getString("message");
+            } catch (IOException e) {
+                e.printStackTrace();
+                msg = "查询失败，请重试！！";
+            }
+            group.sendMessage(FunKt.getMif().text(msg).toMessage());
+        }, 15, TimeUnit.SECONDS);
     }
 
     @Action("学习 {learn} {say}")

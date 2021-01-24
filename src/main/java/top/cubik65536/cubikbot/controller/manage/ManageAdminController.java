@@ -38,7 +38,7 @@ public class ManageAdminController {
     public GroupEntity before(Member qq, long group) {
         GroupEntity groupEntity = groupService.findByGroup(group);
         if (groupEntity == null) groupEntity = new GroupEntity(group);
-        if (groupEntity.isAdmin(qq.getId()) || qq.getId() == Long.parseLong(master) || qq.isAdmin()) {
+        if (String.valueOf(qq.getId()).equals(master) || groupEntity.isAdmin(qq.getId()) || qq.isAdmin()) {
             return groupEntity;
         } else throw FunKt.getMif().at(qq).plus("您的权限不足，无法执行！！").toThrowable();
     }
@@ -73,7 +73,7 @@ public class ManageAdminController {
     @Action("CubikBot {status}")
     @Synonym({"整点报时 {status}", "自动审核 {status}",
             "欢迎语 {status}", "退群拉黑 {status}", "鉴黄 {status}", "图片 {status}",
-            "撤回通知 {status}", "闪照通知 {status}", "稻草人 {status}", "复读机 {status}"})
+            "撤回通知 {status}", "闪照通知 {status}", "稻草人 {status}", "复读机 {status}", "窥屏检测 {status}"})
     @QMsg(at = true)
     public String onOrOff(GroupEntity groupEntity, boolean status, @PathVar(0) String op){
         String systemStatus = " ";
@@ -137,6 +137,9 @@ public class ManageAdminController {
                 break;
             case "复读机":
                 groupEntity.setRepeat(status);
+                break;
+            case "窥屏检测":
+                groupEntity.setPeeking(status);
                 break;
             default:
                 return null;
