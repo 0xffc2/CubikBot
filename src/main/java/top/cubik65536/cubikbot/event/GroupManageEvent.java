@@ -14,6 +14,7 @@ import com.icecreamqaq.yuq.message.*;
 import top.cubik65536.cubikbot.entity.GroupEntity;
 import top.cubik65536.cubikbot.entity.QQEntity;
 import top.cubik65536.cubikbot.logic.QQAILogic;
+import top.cubik65536.cubikbot.logic.TimeLogic;
 import top.cubik65536.cubikbot.service.GroupService;
 import top.cubik65536.cubikbot.service.MessageService;
 import top.cubik65536.cubikbot.service.QQService;
@@ -35,6 +36,8 @@ public class GroupManageEvent {
     private QQService qqService;
     @Inject
     private QQAILogic qqaiLogic;
+    @Inject
+    private TimeLogic timeLogic;
     @Inject
     private MessageService messageService;
     @Inject
@@ -77,37 +80,6 @@ public class GroupManageEvent {
         }
         if (status){
             e.setCancel(true);
-        }
-    }
-
-    @Event(weight = Event.Weight.low)
-    public void repeat(GroupMessageEvent e){
-        long group = e.getGroup().getId();
-        GroupEntity groupEntity = groupService.findByGroup(group);
-        Boolean repeat;
-        if (groupEntity == null) repeat = true;
-        else repeat = groupEntity.getRepeat();
-        if (repeat == null) {
-            repeat = true;
-            groupEntity.setRepeat(true);
-            groupService.save(groupEntity);
-        }
-        if (repeat) {
-            long qq = e.getSender().getId();
-            JSONArray nowJsonArray = BotUtils.messageToJsonArray(e.getMessage());
-            if (lastMessage.containsKey(group)) {
-//            synchronized (this) {
-                JSONArray oldJsonArray = lastMessage.get(group);
-                if (BotUtils.equalsMessageJsonArray(nowJsonArray, oldJsonArray) &&
-                        !BotUtils.equalsMessageJsonArray(nowJsonArray, lastRepeatMessage.get(group))
-                        && lastQQ.get(group) != qq) {
-                    lastRepeatMessage.put(group, nowJsonArray);
-                    e.getGroup().sendMessage(e.getMessage());
-                }
-//            }
-            }
-            lastMessage.put(group, nowJsonArray);
-            lastQQ.put(group, qq);
         }
     }
 
@@ -261,6 +233,17 @@ public class GroupManageEvent {
             e.getGroup().sendMessage(mif.text("稻 草 人").toMessage());
             return;
         }
+        if (message.toPath().get(0).startsWith("早")) {
+            if (timeLogic.isInTime("05:00", "8:30")) {
+                e.getGroup().sendMessage(mif.text("早").toMessage());
+            } else if (timeLogic.isInTime("08:30", "11:45")) {
+                e.getGroup().sendMessage(mif.text("太阳都晒屁股了不早了").toMessage());
+            } else ;
+            return;
+        } else if (message.toPath().get(0).startsWith("晚安") && (timeLogic.isInTimeSec("20:00:00", "23:59:59") || timeLogic.isInTimeSec("00:00:01", "03:00:00"))) {
+            e.getGroup().sendMessage(mif.text("晚安").toMessage());
+            return;
+        } else ;
         for (int i = 0; i < learnJsonArray.size(); i++) {
             JSONObject jsonObject = learnJsonArray.getJSONObject(i);
             String type = jsonObject.getString("type");
