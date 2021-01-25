@@ -14,6 +14,7 @@ import com.icecreamqaq.yuq.controller.ContextSession;
 import com.icecreamqaq.yuq.entity.Group;
 import com.icecreamqaq.yuq.entity.Member;
 import com.icecreamqaq.yuq.job.RainInfo;
+import com.icecreamqaq.yuq.message.Image;
 import com.icecreamqaq.yuq.message.MessageItemFactory;
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
@@ -28,6 +29,7 @@ import top.cubik65536.cubikbot.utils.BotUtils;
 import top.cubik65536.cubikbot.utils.OkHttpUtils;
 
 import javax.inject.Inject;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.time.Duration;
@@ -153,7 +155,7 @@ public class ToolController {
             return new DecimalFormat("#.##KB").format(kbNumber);
         }
         double mbNumber = kbNumber/FORMAT;
-        if(mbNumber<FORMAT){
+        if (mbNumber < FORMAT) {
             return new DecimalFormat("#.##MB").format(mbNumber);
         }
         double gbNumber = mbNumber / FORMAT;
@@ -162,6 +164,11 @@ public class ToolController {
         }
         double tbNumber = gbNumber / FORMAT;
         return new DecimalFormat("#.##TB").format(tbNumber);
+    }
+
+    @Action("几点了")
+    public Image time() throws IOException {
+        return FunKt.getMif().imageByInputStream(new ByteArrayInputStream(toolLogic.queryTime()));
     }
 
     @Action("窥屏检测")
