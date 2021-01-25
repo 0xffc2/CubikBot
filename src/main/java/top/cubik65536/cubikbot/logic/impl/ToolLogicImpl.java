@@ -440,6 +440,8 @@ public class ToolLogicImpl implements ToolLogic {
     @Override
     public byte[] queryTime() throws IOException {
         SimpleDateFormat sdf = new SimpleDateFormat("HH-mm");
+        TimeZone timeZone = TimeZone.getTimeZone("GMT+8:00");//设定时区为中国时区
+        sdf.setTimeZone(timeZone);
         return OkHttpUtils.downloadBytes("https://cdn.jsdelivr.net/gh/Cubik65536/Cubik-Image-Hosting-Service/src/assets/time-images/" + sdf.format(new Date()) + ".jpg");
     }
 
